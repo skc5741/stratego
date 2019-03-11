@@ -3,6 +3,6 @@
 using namespace ge211;
 
 Model::Model(int size)
-        : Model(size, size);
+        : board_({size, size})
 { }
 
