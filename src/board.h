@@ -5,7 +5,6 @@
 #pragma once
 
 #include "player.h"
-#include "move.h"
 
 #include <ge211.h>
 

@@ -6,6 +6,8 @@
 
 #pragma once
 
+Piece
+
 enum class Player
 {
     red,

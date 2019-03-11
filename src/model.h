@@ -3,6 +3,7 @@
 #include <ge211.h>
 #include <board.h>
 #include <player.h>
+#include <piece.h>
 
 //
 // TODO: Sketch the structure of your model and declare its operations.
@@ -19,22 +20,6 @@ ge211::Dimensions const val_dims;
 //
 //  Model Classes
 //
-
-// The struct containing info about individual pieces
-struct Piece {
-
-// If the piece is alive / on the board
-    bool live;
-
-// Grid position at which the piece is on the board
-    ge211::Position space;
-
-// Value of the piece based on gameplay rules
-    int value;
-
-// Determines which team the piece is on, which army it belongs to
-    bool is_red;
-};
 
 // Whole state of the game
 class Model
