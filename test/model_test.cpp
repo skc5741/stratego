@@ -78,7 +78,7 @@ TEST_CASE("Test Batt") {
 
 TEST_CASE("Test Flag Capture") {
     Piece p1(Player::red, 3); // miner
-    Piece p2(Player::blue, 1); // val of flag
+    Piece p2(Player::blue, 0); // val of flag
     Model m;
     Test_access t{m};
 
@@ -89,7 +89,7 @@ TEST_CASE("Test Flag Capture") {
 
 TEST_CASE("Test Bomb Defuses") {
     Piece p1(Player::red, 3); // miner
-    Piece p2(Player::blue, 12); // bomb
+    Piece p2(Player::blue, 11); // bomb
     Model m;
     Test_access t{m};
 
