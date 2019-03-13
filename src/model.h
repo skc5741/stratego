@@ -2,6 +2,7 @@
 
 #include <ge211.h>
 #include "player.h"
+
 #include "piece.h"
 
 //
@@ -51,6 +52,9 @@ public:
     Player turn() const
     { return turn_; }
 
+    bool is_setup() const
+    { return setup; };
+
 // Returns the plyr at the given position, or `Player::neither` if
 // the position is unoccupied.
 //
@@ -83,6 +87,8 @@ private:
     std::vector<Piece> blue_army_;
     std::vector<Piece> red_army_;
     Piece empty_piece_;
+
+    bool setup = true;
 
 //
 //  Setup helper functions
