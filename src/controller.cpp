@@ -3,6 +3,7 @@
 //
 #include "controller.h"
 
+
 using namespace ge211;
 
 Controller::Controller(int size)
@@ -17,6 +18,7 @@ Controller::Controller(int width, int height)
 
 void Controller::draw(Sprite_set& sprites)
 {
+
     view_.draw(sprites, mouse_posn);
 }
 
