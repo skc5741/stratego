@@ -69,12 +69,12 @@ int Model::get_next_val() {
 
 // Determines whether or not the given piece is movable in gameplay
 bool Model::is_movable(ge211::Position pos) {
-
+    return true; // TODO
 }
 
 // Checks to see if the given plyr has any moves to make
 bool Model::is_playable(Player plyr) {
-
+    return true; // TODO
 }
 
 // Updates next_moves_ based upon the selected piece.
@@ -84,7 +84,7 @@ void Model::compute_next_moves(Piece pc) {
 
 // Determines whether or not the given position is a valid, movable pos on the board
 bool Model::is_valid_space(ge211::Position pos) {
-
+    return true; // TODO
 }
 
 // Updates turn_ to the next plyr, implements secrecy functionality along the way

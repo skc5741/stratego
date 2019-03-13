@@ -8,7 +8,6 @@
 #include "player.h"
 #include <string>
 
-
 ge211::Color const red_color    {235, 0, 0};
 ge211::Color const green_color    {0, 235, 0};
 ge211::Color const blue_color    {0, 0, 235};

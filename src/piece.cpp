@@ -2,7 +2,7 @@
 // Created by Sam Crites on 2019-03-10.
 //
 
-#include "player.h"
+#include "piece.h"
 
 using namespace ge211;
 
