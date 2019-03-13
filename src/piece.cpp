@@ -7,17 +7,17 @@
 using namespace ge211;
 
 Piece::Piece() {
-    : this->plyr = Player::neither;
-    , live = false;
-    , pos = {-1,-1};
-    , val = -1;
+    this->plyr = Player::neither;
+    live = false;
+    pos = {-1,-1};
+    val = -1;
 }
 
 Piece::Piece(Player plyr, int val) {
-    : this->plyr = plyr;
-    , live = false;
-    , pos = {-1,-1};
-    , val = val;
+    this->plyr = plyr;
+    live = false;
+    pos = {-1,-1};
+    val = val;
 }
 
 Piece::place_position(ge211::Position pos) {

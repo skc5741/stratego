@@ -22,7 +22,7 @@ struct Test_access {
     bool is_playable(Player plyr) { return m_.is_playable(plyr); }
     void compute_next_moves(Piece pc) { m_.compute_next_moves(pc); }
     bool is_valid_space(Position pos) { return m_.is_valid_space(pos)};
-    bool advance_turn() { return m_.advance_turn(); }
+    void advance_turn() { m_.advance_turn(); }
     void hide_board() { m_.hide_board(); }
     void reveal_side(Player plyr) { m_.reveal_side(plyr); }
     void update_text(std::string str) { m_.update_text(str); }

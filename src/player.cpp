@@ -7,8 +7,8 @@
 Player other_player(Player player)
 {
     switch (player) {
-        case Player::light: return Player::dark;
-        case Player::dark: return Player::light;
+        case Player::red: return Player::blue;
+        case Player::blue: return Player::red;
         default: return player;
     }
 }
@@ -16,10 +16,10 @@ Player other_player(Player player)
 std::ostream& operator<<(std::ostream& os, Player p)
 {
     switch (p) {
-        case Player::light:
-            return os << "L";
-        case Player::dark:
-            return os << "D";
+        case Player::red:
+            return os << "R";
+        case Player::blue:
+            return os << "B";
         case Player::neither:
             return os << "_";
     }
