@@ -31,7 +31,7 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     if (model_.setup)
     {
         int val = model_.get_next_val();
-        if (model_.place_piece(val, grid_pos))
+        model_.place_piece(val, grid_pos)
     }
     else
     {

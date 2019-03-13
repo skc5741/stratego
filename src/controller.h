@@ -17,7 +17,7 @@ protected:
 
     void on_mouse_move(ge211::Position position) override;
 
-    void on_key_down(Key key) override;
+    void on_key_down(ge211::Key key) override;
 
     void draw(ge211::Sprite_set&) override;
     ge211::Dimensions initial_window_dimensions() const override;
