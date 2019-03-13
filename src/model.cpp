@@ -50,7 +50,7 @@ void Model::place_piece(int x, ge211::Position pos) {
 
 // Complete the setup process and move into gameplay mode
 void Model::finish_setup() {
-
+    setup = false;
 }
 
 int Model::get_next_val() {
@@ -58,6 +58,8 @@ int Model::get_next_val() {
     place_iter++;
     if(place_iter >= avail_vals.size() && turn_ == Player::red)
         place_iter = 0;
+    if(place_iter >= avail_vals.size() && turn_ == Player::blue)
+        finish_setup();
     return x;
 }
 
@@ -86,8 +88,19 @@ bool Model::is_valid_space(ge211::Position pos) {
 }
 
 // Updates turn_ to the next plyr, implements secrecy functionality along the way
-bool Model::advance_turn() {
-
+void Model::advance_turn() {
+    if (turn_ == Player::blue || turn_ == Player::red) {
+        prev_turn_ = turn_;
+        turn_ = Player::neither;
+    }
+    else
+    {
+        prev_turn_ = Player::neither;
+        if (prev_turn_ == Player::blue)
+            turn_ = Player::red;
+        else if (prev_turn_ == Player::red)
+            turn_ = Player::red;
+    }
 }
 
 // Hides the values of each army from sight of the user

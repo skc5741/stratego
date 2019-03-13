@@ -104,7 +104,7 @@ public:
     int get_next_val();
 
     // Updates turn_ to the next plyr, implements secrecy functionality along the way
-    bool advance_turn();
+    void advance_turn();
 
     friend struct Test_access;
 
@@ -115,6 +115,7 @@ private:
 //
 
     Player turn_ = Player::red;
+    Player prev_turn_ = Player::neither;
     Player winner_ = Player::neither;
     std::vector<Piece> blue_army_;
     std::vector<Piece> red_army_;
