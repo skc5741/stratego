@@ -58,7 +58,6 @@ int Model::get_next_val() {
     place_iter++;
     if(place_iter >= avail_vals.size() && turn_ == Player::red)
         place_iter = 0;
-    else if(place_iter >= avail_vals.size() && turn_ == Player::red)
     return x;
 }
 

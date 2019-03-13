@@ -1,8 +1,11 @@
 #pragma once
 
-#include <ge211.h>
 #include "player.h"
 
+#include <ge211.h>
+
+#include <iostream>
+#include <vector>
 #include "piece.h"
 
 //
