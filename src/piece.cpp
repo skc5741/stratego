@@ -6,29 +6,31 @@
 
 using namespace ge211;
 
-Piece::Piece() {
+Piece::Piece()
+        : pos(-1,-1)
+{
     this->plyr = Player::neither;
     live = false;
-    pos = {-1,-1};
     val = -1;
 }
 
-Piece::Piece(Player plyr, int val) {
+Piece::Piece(Player plyr, int val)
+        : pos(-1,-1)
+{
     this->plyr = plyr;
     live = false;
-    pos = {-1,-1};
-    val = val;
+    this->val = val;
 }
 
-Piece::place_position(ge211::Position pos) {
+void Piece::place_position(ge211::Position pos) {
     this->pos = pos;
     live = true;
 }
 
-Piece::change_position(ge211::Position pos) {
+void Piece::change_position(ge211::Position pos) {
     this->pos = pos;
 }
 
-Piece::kill() {
+void Piece::kill() {
     live = false;
 }

@@ -25,10 +25,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     ge211:Position circle_center = mouse_pos;
     circle_center = circle_center.left_by(piece_rad);
     circle_center = circle_center.up_by(piece_rad);
-    if (model_.turn() == Player::light)
-        set.add_sprite(light_sprite_, circle_center, 5);
-    else if (model_.turn() == Player::dark)
-        set.add_sprite(dark_sprite_, circle_center, 5);
+    if (model_.turn() == Player::red)
+        set.add_sprite(red_sprite_, circle_center, 5);
+    else if (model_.turn() == Player::blue)
+        set.add_sprite(blue_sprite_, circle_center, 5);
 
     for(int x = 0; x < model_.board().width; x++) {
         for(int y = 0; y < model_.board().height; y++) {
@@ -37,18 +37,18 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             set.add_sprite(space_sprite_, grid_to_pos({x,y}), 1);
 
             // Initialize board pieces
-            if(model_[{x, y}] != Player::neither) {
+            if(model_[{x, y}].player() != Player::neither) {
                 ge211::Position pos = grid_to_pos({x,y});
                 pos.x += (space_dim/2 - piece_rad);
                 pos.y += (space_dim/2 - piece_rad);
 
-                if (model_[{x, y}] == Player::light)
-                    set.add_sprite(light_sprite_, pos, 3);
-                else if (model_[{x, y}] == Player::dark)
-                    set.add_sprite(dark_sprite_, pos, 3);
+                if (model_[{x, y}].player() == Player::red)
+                    set.add_sprite(red_sprite_, pos, 3);
+                else if (model_[{x, y}].player() == Player::blue)
+                    set.add_sprite(blue_sprite_, pos, 3);
             }
 
-            // Initialize move markers
+            /*// Initialize move markers
             if (model_.find_move({x,y})) {
                 ge211::Position pos = grid_to_pos({x,y});
                 pos.x += (space_dim/2 - marker_rad);
@@ -65,11 +65,11 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
                     ge211::Rectangle rec;
                     set.add_sprite(red_sprite_, grid_to_pos({x,y}), 2);
                 }
-            }
+            } */
 
             // If game is over, do something cool
             if(model_.is_game_over()) {
-                if(model_[{x,y}] != model_.winner()) {
+                if(model_[{x,y}].player() != model_.winner()) {
                     set.add_sprite(red_sprite_, grid_to_pos({x,y}), 2);
                 }
             }
