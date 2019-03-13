@@ -7,26 +7,26 @@
 using namespace ge211;
 
 Piece::Piece() {
-    : player = Player::neither;
+    : this->plyr = Player::neither;
     , live = false;
-    , space = {-1,-1};
-    , value = -1;
+    , pos = {-1,-1};
+    , val = -1;
 }
 
 Piece::Piece(Player plyr, int val) {
-    : player = plyr;
+    : this->plyr = plyr;
     , live = false;
-    , space = {-1,-1};
-    , value = val;
+    , pos = {-1,-1};
+    , val = val;
 }
 
 Piece::place_position(ge211::Position pos) {
-    space = pos;
+    this->pos = pos;
     live = true;
 }
 
 Piece::change_position(ge211::Position pos) {
-    space = pos;
+    this->pos = pos;
 }
 
 Piece::kill() {

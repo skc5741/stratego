@@ -32,17 +32,17 @@ The available pieces are as follows:
 
 The objective of the game is to capture the flag of the other team,
 or to eliminate every movable piece of your opponent's army. If any
-player cannot move a piece during their turn, they lose the game.
+plyr cannot move a piece during their turn, they lose the game.
 
 ### Game play
 
-Each player begins by privately assembling their army on the board,
+Each plyr begins by privately assembling their army on the board,
 with the objective of protecting their flag. During the game, the
-value of the opponent's pieces are not visible to each player.
+val of the opponent's pieces are not visible to each plyr.
 Once each team has assembled their army, each team alternates
 moving a movable piece in their army, beginning with the red army.
 Each piece is able to move to one adjacent location, without moving
-diagonally. If the current player moves their piece to a location
+diagonally. If the current plyr moves their piece to a location
 with an enemy piece, they have attacked, and whoever has the higher
 rank wins. There are some exceptions to this:
 
@@ -61,47 +61,47 @@ are both removed from the board.
 marshall (10) is removed from the game board. If the spy (S) attacks or
 is attacked by any other piece on the board, or if the spy (S) is
 attacked by the marshall (10), then the spy is removed from the board.
-- No player is allowed to move over or  onto the lakes in the center of
+- No plyr is allowed to move over or  onto the lakes in the center of
 the board.
-- The flag and bombs cannot move during a player's turn.
+- The flag and bombs cannot move during a plyr's turn.
 
 ## Functional requirements
 
 1. Board must appear on the screen in alternating colors with two lake
 spaces in the center.
 
-2. Each player must be able to set up their army, with each player
+2. Each plyr must be able to set up their army, with each plyr
 having complete autonomy in which pieces go where.
 
-3. The turn of each player must be tracked.
+3. The turn of each plyr must be tracked.
 
 4. At any given turn the opponent's army should not be visible.
 
 5. Between turns, neither army should be visible, until the current
-player indicates they are ready to move.
+plyr indicates they are ready to move.
 
-6. Each player should be able to choose which piece they want to move.
+6. Each plyr should be able to choose which piece they want to move.
 
-7. If the player selects an invalid piece, they should be able to
+7. If the plyr selects an invalid piece, they should be able to
 select again.
 
 8. The available moves for each piece should be highlighted, similar
 to the reversi program.
 
-9. The player should be able to select where they want to move their
+9. The plyr should be able to select where they want to move their
 piece.
 
-10. If a player moves to an invalid space, they should be able to select
+10. If a plyr moves to an invalid pos, they should be able to select
 again.
 
-11. If the player moves to a contested spot, battle ensues.
+11. If the plyr moves to a contested spot, battle ensues.
 
 12. If battle ensues, the valid winner is selected by comparing values
-                              and takes the contested space.
+                              and takes the contested pos.
 
 13. If the flag is taken, winner is declared and the game ends.
 
-14. If any player has no more valid moves, the opponent wins and the
+14. If any plyr has no more valid moves, the opponent wins and the
 game ends.
 
 ## Open questions

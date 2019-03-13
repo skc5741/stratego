@@ -2,8 +2,8 @@
 
 #include <ge211.h>
 #include <board.h>
-#include <player.h>
-#include <piece.h>
+#include "player.h"
+#include "piece.h"
 
 //
 // TODO: Sketch the structure of your model and declare its operations.
@@ -39,33 +39,39 @@ public:
     ge211::Rectangle board() const;
 
 // Returns whether the game is finished. This is true when neither
-// player can move.
+// plyr can move.
     bool is_game_over() const
     { return turn() == Player::neither; }
+
+    // Returns the winner of the game.
+    Player winner() const
+    { return winner_; }
 
 // Returns the current turn, or `Player::neither` if the game is
 // over.
     Player turn() const
     { return turn_; }
 
-// Returns the player at the given position, or `Player::neither` if
+// Returns the plyr at the given position, or `Player::neither` if
 // the position is unoccupied.
 //
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if the position is out of
 //    bounds.
-    Player operator[](ge211::Position) const;
+    Piece operator[](ge211::Position) const;
 
 // Attempts to play a move at the given position for the current
-// player. If successful, advances the state of the game to the
-// correct player or game over.
+// plyr. If successful, advances the state of the game to the
+// correct plyr or game over.
 //
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if the game is over.
 //  - Throws `ge211::Client_logic_error` if the move is not currently
-//    allowed for the current player.
+//    allowed for the current plyr.
 //
     void play_move(ge211::Position);
+
+    friend struct Test_access;
 
 private:
 
@@ -76,20 +82,21 @@ private:
     Player turn_ = Player::red;
     Player winner_ = Player::neither;
     Board board_;
-
-    Move_map next_moves_;
+    std::vector<Piece> blue_army;
+    std::vector<Piece> red_army;
+    Piece empty_piece;
 
 //
 //  Setup helper functions
 //
 
-// Checks to see that the given position is valid for setup placement for a certain player
+// Checks to see that the given position is valid for setup placement for a certain plyr
     bool setup_is_valid_space(ge211::Position, Player);
 
-// Checks if the given input is in the range of valid player values.
+// Checks if the given input is in the range of valid plyr values.
     bool is_input_valid(int);
 
-// Place a piece on the game board and update value.
+// Place a piece on the game board and update val.
     void place_piece(int, ge211::Position);
 
 // Complete the setup process and move into gameplay mode
@@ -102,16 +109,16 @@ private:
 // Determines whether or not the given piece is movable in gameplay
     bool is_movable(ge211::Position);
 
-// Checks to see if the given player has any moves to make
-    void is_playable(Player);
+// Checks to see if the given plyr has any moves to make
+    bool is_playable(Player);
 
 // Updates next_moves_ based upon the selected piece.
     void compute_next_moves(Piece);
 
-// Determines whether or not the given position is a valid, movable space on the board
+// Determines whether or not the given position is a valid, movable pos on the board
     bool is_valid_space(ge211::Position);
 
-// Updates turn_ to the next player, implements secrecy functionality along the way
+// Updates turn_ to the next plyr, implements secrecy functionality along the way
     bool advance_turn();
 
 // Hides the values of each army from sight of the user

@@ -25,7 +25,7 @@ public:
     //    than 2 or greater than 8.
     explicit Board(ge211::Dimensions dims);
 
-    // Returns the same `ge211::Dimensions` value passed to the
+    // Returns the same `ge211::Dimensions` val passed to the
     // constructor.
     ge211::Dimensions dimensions() const;
 
@@ -66,7 +66,7 @@ public:
     //    are out of bounds.
     multi_reference operator[](Position_set);
 
-    // Counts the number of occurrences of the given player in the board.
+    // Counts the number of occurrences of the given plyr in the board.
     size_t count_player(Player) const;
 
     // Returns a rectangle containing all the positions of the board. This
@@ -132,13 +132,13 @@ class Board::reference
     reference(Board&, ge211::Position) noexcept;
 
 public:
-    // Assigns the value of `that` to the object of `this`.
+    // Assigns the val of `that` to the object of `this`.
     reference& operator=(reference const&) noexcept;
 
     // Assigns to the object of the reference.
     reference& operator=(Player) noexcept;
 
-    // Returns the value of the reference.
+    // Returns the val of the reference.
     operator Player() const noexcept;
 };
 

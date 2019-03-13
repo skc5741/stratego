@@ -43,7 +43,7 @@
 # library (SDL.dll, libsdl.so, SDL.framework, etc). Set
 # SDL2_LIBRARY_TEMP to point to your SDL library, and configure again.
 # Similarly, if you see an empty SDLMAIN_LIBRARY, you should set this
-# value as appropriate. These values are used to generate the final
+# val as appropriate. These values are used to generate the final
 # SDL2_LIBRARY variable, but when these values are unset, SDL2_LIBRARY
 # does not get created.
 #

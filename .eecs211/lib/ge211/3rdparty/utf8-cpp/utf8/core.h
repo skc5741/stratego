@@ -52,7 +52,7 @@ namespace internal
     const uint16_t LEAD_OFFSET         = LEAD_SURROGATE_MIN - (0x10000 >> 10);
     const uint32_t SURROGATE_OFFSET    = 0x10000u - (LEAD_SURROGATE_MIN << 10) - TRAIL_SURROGATE_MIN;
 
-    // Maximum valid value for a Unicode code point
+    // Maximum valid val for a Unicode code point
     const uint32_t CODE_POINT_MAX      = 0x0010ffffu;
 
     template<typename octet_type>
@@ -222,7 +222,7 @@ namespace internal
     template <typename octet_iterator>
     utf_error validate_next(octet_iterator& it, octet_iterator end, uint32_t& code_point)
     {
-        // Save the original value of it so we can go back in case of failure
+        // Save the original val of it so we can go back in case of failure
         // Of course, it does not make much sense with i.e. stream iterators
         octet_iterator original_it = it;
 
@@ -266,7 +266,7 @@ namespace internal
                 err = INVALID_CODE_POINT;
         }
 
-        // Failure branch - restore the original value of the iterator
+        // Failure branch - restore the original val of the iterator
         it = original_it;
         return err;
     }

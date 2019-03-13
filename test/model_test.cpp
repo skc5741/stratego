@@ -8,58 +8,90 @@
 // requirements.
 //
 
+using namespace ge211;
+
+struct Test_access {
+    Model &m_;
+    Board &board() {return m_.board_;}
+    bool setup_is_valid_space(Position pos, Player plyr)
+        { return m_.setup_is_valid_space(pos, plyr); }
+    bool is_input_valid(int x) { return m_.is_input_valid(x); }
+    void place_piece(int x, Position pos)
+        { return m_.place_piece(x, pos); }
+    void finish_setup() { m_.finish_setup(); }
+    bool is_movable(Position pos) { return m_.is_movable(pos); }
+    bool is_playable(Player plyr) { return m_.is_playable(plyr); }
+    void compute_next_moves(Piece pc) { m_.compute_next_moves(pc); }
+    bool is_valid_space(Position pos) { return m_.is_valid_space(pos)};
+    bool advance_turn() { return m_.advance_turn(); }
+    void hide_board() { m_.hide_board(); }
+    void reveal_side(Player plyr) { m_.reveal_side(plyr); }
+    void update_text(std::string str) { m_.update_text(str); }
+    void end_game() { m_.end_game(); }
+    void battle(Piece pc1, Piece pc2) { m_.battle(pc1, pc2); }
+    Piece battleLoser(Piece pc1, Piece pc2) { return m_.battleLoser(pc1, pc2); }
+    void deleteLoser(Piece pc) { m_.deleteLoser(pc); }
+};
+
 TEST_CASE("Test 1") {
-    Piece p1;
-    place_piece(5, {4,2});
-    CHECK(p1.space == {4,2});
+    Position pos = {4,2};
+
+    Piece p1(Player::red, 5);
+    Model m;
+    Test_access t{m};
+
+    t.place_piece(5, pos);
+    CHECK(p1.position() == pos);
 };
 
 TEST_CASE("Test 2") {
-    CHECK(is_valid_space({4,2}))    // Valid
-    CHECK(!is_valid_space({-4,2}))  // Outside bounds
-    CHECK(!is_valid_space({3,7}))  // Lake 1
-    CHECK(!is_valid_space({7,7}))  // Lake 2
+    Model m;
+    Test_access t{m};
+
+    CHECK(t.is_valid_space({4,2}));    // Valid
+    CHECK(!t.is_valid_space({-4,2}));  // Outside bounds
+    CHECK(!t.is_valid_space({3,7}));  // Lake 1
+    CHECK(!t.is_valid_space({7,7}));  // Lake 2
 }
 
 TEST_CASE("Test 3") {
-    CHECK(is_input_valid(2));   // Valid (lower limit)
-    CHECK(is_input_valid(13));  // Valid (upper limit)
-    CHECK(!is_input_valid(0));  // Too Low
-    CHECK(!is_input_valid(13));  // Too High
-    CHECK(!is_input_valid(2));
+    Model m;
+    Test_access t{m};
+
+    CHECK(t.is_input_valid(2));   // Valid (lower limit)
+    CHECK(t.is_input_valid(13));  // Valid (upper limit)
+    CHECK(!t.is_input_valid(0));  // Too Low
+    CHECK(!t.is_input_valid(13));  // Too High
+    CHECK(!t.is_input_valid(2));
 }
 
 TEST_CASE("Test 4") {
-    Piece p1;
-    p1.value = 6; // Captain
-    p1.is_red = true;
-    Piece p2;
-    p2.value = 8;  // Colonel
-    p2.is_red = false;
-    CHECK(battleLoser(p1, p2) == p1);  // Colonel should win, std value comparison
-    battle(p1, p2);
-    CHECK(p1.live = true); // Bomb should be defused
-    CHECK(p2.live = false); // Bomb should be defused
+    Piece p1(Player::red, 6); // Captain
+    Piece p2(Player::blue, 8);  // Colonel
+    Model m;
+    Test_access t{m};
+
+    p1.place_position({0,0});
+    CHECK(t.battleLoser(p1, p2) == p1);  // Colonel should win, std val comparison
+    t.battle(p1, p2);
+    CHECK(p1.alive() == true); // Bomb should be defused
+    CHECK(p2.alive() == false); // Bomb should be defused
 }
 
 TEST_CASE("Test 5") {
-    Piece p1;
-    p1.value = 3; // miner
-    p1.is_red = true;
-    Piece p2;
-    p2.value = 1; // value of flag
-    p2.is_red = false;
-    battle(p1, p2); // Game should end when piece encounters flag
-    CHECK(winner_ != Player::neither); // Checks game over
+    Piece p1(Player::red, 3); // miner
+    Piece p2(Player::blue, 1); // val of flag
+    Model m;
+    Test_access t{m};
+
+    t.battle(p1, p2); // Game should end when piece encounters flag
+    CHECK(m.is_game_over() == true); // Checks game over
+    CHECK(m.winner() == Player::red); // Checks winner
 }
 
 TEST_CASE("Test 6") {
-    Piece p1;
-    p1.value = 3; // miner
-    p1.is_red = true;
-    Piece p2;
-    p2.value = 12; // bomb
-    p2.is_red = false;
+    Piece p1(Player::red, 3); // miner
+    Piece p2(Player::blue, 12); // bomb
     CHECK(battleLoser(p1, p2) == p2); // Miner should defuse bomb, miner should win
     battle(p1, p2);
     CHECK(p1.live = true); // Bomb should be defused
