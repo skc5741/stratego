@@ -6,6 +6,8 @@
 
 using namespace ge211;
 
+
+
 // You can change this or even determine it some other way:
 static int const grid_size = 36;
 
