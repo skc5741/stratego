@@ -45,6 +45,7 @@ bool Model::is_value_valid(int x) {
 
 // Place a piece on the game board and update val.
 void Model::place_piece(int x, ge211::Position pos) {
+    // TODO
 
 }
 
@@ -79,7 +80,7 @@ bool Model::is_playable(Player plyr) {
 
 // Updates next_moves_ based upon the selected piece.
 void Model::compute_next_moves(Piece pc) {
-
+    // TODO
 }
 
 // Determines whether or not the given position is a valid, movable pos on the board
@@ -105,28 +106,28 @@ void Model::advance_turn() {
 
 // Hides the values of each army from sight of the user
 void Model::hide_board() {
-
+    // TODO
 }
 
 // Reveals the values of the given army for the user
 void Model::reveal_side(Player plyr) {
-
+    // TODO
 }
 
 // There will be caption text that will provide the user with basic info about the gameplay
 // Update the caption text to be the given string
 void Model::update_text(std::string str) {
-
+    // TODO
 }
 
 // Ends game, announces winner
 void Model::end_game() {
-
+    // TODO
 }
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
 void Model::battle(Piece pc1, Piece pc2) {
-
+    // TODO
 }
 
 //
@@ -140,7 +141,7 @@ Piece Model::battleLoser(Piece pc1, Piece pc2) {
 
 // Removes the loser from gameplay
 void Model::deleteLoser(Piece pc) {
-
+    // TODO
 }
 
 // Attempts to play a move at the given position for the current
@@ -153,5 +154,5 @@ void Model::deleteLoser(Piece pc) {
 //    allowed for the current plyr.
 //
 void Model::play_move(Position pos) {
-
+    // TODO
 }
