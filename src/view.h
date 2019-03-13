@@ -3,7 +3,14 @@
 //
 
 #include "model.h"
-#include "board.h"
 #include "player.h"
 
 #include <string>
+
+class View
+{
+public:
+
+private:
+
+};

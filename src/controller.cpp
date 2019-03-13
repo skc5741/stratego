@@ -3,7 +3,7 @@
 //
 #include "controller.h"
 
-//using namespace ge211;
+using namespace ge211;
 
 Controller::Controller(int size)
 {

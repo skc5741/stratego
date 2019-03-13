@@ -12,10 +12,9 @@ using namespace ge211;
 
 struct Test_access {
     Model &m_;
-    ge211::Rectangle &board() {return m_.board_;}
     bool setup_is_valid_space(Position pos, Player plyr)
         { return m_.setup_is_valid_space(pos, plyr); }
-    bool is_input_valid(int x) { return m_.is_input_valid(x); }
+    bool is_input_valid(int x) { return m_.is_value_valid(x); }
     void place_piece(int x, Position pos)
         { return m_.place_piece(x, pos); }
     void finish_setup() { m_.finish_setup(); }
@@ -58,11 +57,10 @@ TEST_CASE("Test 3") {
     Model m;
     Test_access t{m};
 
-    CHECK(t.is_input_valid(2));   // Valid (lower limit)
-    CHECK(t.is_input_valid(13));  // Valid (upper limit)
-    CHECK(!t.is_input_valid(0));  // Too Low
-    CHECK(!t.is_input_valid(13));  // Too High
-    CHECK(!t.is_input_valid(2));
+    CHECK(t.is_input_valid(0));   // Valid (lower limit)
+    CHECK(t.is_input_valid(11));  // Valid (upper limit)
+    CHECK(!t.is_input_valid(-1));  // Too Low
+    CHECK(!t.is_input_valid(12));  // Too High
 }
 
 TEST_CASE("Test Batt") {

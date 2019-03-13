@@ -8,6 +8,24 @@
 // TODO: Sketch the structure of your model and declare its operations.
 //
 
+/*
+
+ Player Values:
+    0: Flag
+    1: Spy
+    2: Scout (normal)
+    3: Miner (normal)
+    4: Sergeant (normal)
+    5: Lieutenant (normal)
+    6: Captain (normal)
+    7: Major (normal)
+    8: Colonel (normal)
+    9: General (normal)
+    10: Marshall (normal)
+    11: Bomb
+
+*/
+
 //
 //  Model Constants
 //
@@ -15,6 +33,8 @@
 ge211::Rectangle board_;
 ge211::Rectangle lake_1;
 ge211::Rectangle lake_2;
+
+std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
 
 //
 //  Model Classes
@@ -70,6 +90,15 @@ public:
 //
     void play_move(ge211::Position);
 
+    // Place a piece on the game board and update val.
+    void place_piece(int, ge211::Position);
+
+    // Returns value of piece that is next to be placed
+    int get_next_val();
+
+    // Updates turn_ to the next plyr, implements secrecy functionality along the way
+    bool advance_turn();
+
     friend struct Test_access;
 
 private:
@@ -83,6 +112,7 @@ private:
     std::vector<Piece> blue_army_;
     std::vector<Piece> red_army_;
     Piece empty_piece_;
+    size_t place_iter = 0;
 
 //
 //  Setup helper functions
@@ -92,10 +122,7 @@ private:
     bool setup_is_valid_space(ge211::Position, Player);
 
 // Checks if the given input is in the range of valid plyr values.
-    bool is_input_valid(int);
-
-// Place a piece on the game board and update val.
-    void place_piece(int, ge211::Position);
+    bool is_value_valid(int);
 
 // Complete the setup process and move into gameplay mode
     void finish_setup();
@@ -115,9 +142,6 @@ private:
 
 // Determines whether or not the given position is a valid, movable pos on the board
     bool is_valid_space(ge211::Position);
-
-// Updates turn_ to the next plyr, implements secrecy functionality along the way
-    bool advance_turn();
 
 // Hides the values of each army from sight of the user
     void hide_board();
@@ -145,4 +169,4 @@ private:
 // Removes the loser from gameplay
     void deleteLoser(Piece);
 
-}
+};
