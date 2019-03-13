@@ -4,10 +4,14 @@ include(.eecs211/cmake/CMakeLists.txt)
 
 set(MODEL_SRC
         # LIST ADDITIONAL MODEL .cpp FILES HERE
+        src/player.cpp
+        src/piece.cpp
         src/model.cpp)
 
 add_program(main
-    src/main.cpp
+        src/main.cpp
+        src/controller.cpp
+        src/view.cpp
     # LIST ADDITIONAL NON-MODEL (UI) .cpp FILES HERE
     ${MODEL_SRC})
 target_link_libraries(main ge211)

@@ -2,7 +2,6 @@
 
 #include "model.h"
 #include "view.h"
-#include "../.eecs211/lib/ge211/include/ge211_sprites.h"
 
 class Controller : public ge211::Abstract_game
 {
@@ -29,6 +28,5 @@ private:
     View view_;
 
     ge211::Position mouse_posn;
-
 
 };
