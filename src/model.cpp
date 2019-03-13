@@ -135,7 +135,7 @@ void Model::battle(Piece pc1, Piece pc2) {
 
 // Determines the loser of the battle between the two given pieces
 Piece Model::battleLoser(Piece pc1, Piece pc2) {
-
+    return empty_piece_; // TODO
 }
 
 // Removes the loser from gameplay

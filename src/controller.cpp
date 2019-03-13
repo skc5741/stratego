@@ -7,13 +7,13 @@ using namespace ge211;
 
 Controller::Controller(int size)
         : Controller(size, size)
-{}
+{ }
 
 Controller::Controller(int width, int height)
         : model_()
         , view_(model_)
         , mouse_posn(-100, 100)
-{}
+{ }
 
 void Controller::draw(Sprite_set& sprites)
 {
@@ -28,10 +28,10 @@ void Controller::on_mouse_move(ge211::Position position)
 void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
 {
     ge211::Position grid_pos = view_.pos_to_grid(position);
-    if (model_.is_setup()setup())
+    if (model_.is_setup())
     {
         int val = model_.get_next_val();
-        model_.place_piece(val, grid_pos)
+        model_.place_piece(val, grid_pos);
     }
     else
     {
