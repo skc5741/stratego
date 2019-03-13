@@ -3,7 +3,6 @@
 #include "model.h"
 #include "view.h"
 
-
 class Controller : public ge211::Abstract_game
 {
 public:
@@ -21,7 +20,14 @@ protected:
     void on_key_down(Key key) override;
 
     void draw(ge211::Sprite_set&) override;
+    ge211::Dimensions initial_window_dimensions() const override;
+    std::string initial_window_title() const override;
 
+private:
+    Model model_;
+    View view_;
+
+    ge211::Position mouse_posn;
 
 
 };
