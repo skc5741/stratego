@@ -1,12 +1,12 @@
 #pragma once
 
+#include "piece.h"
 #include "player.h"
 
 #include <ge211.h>
 
 #include <iostream>
 #include <vector>
-#include "piece.h"
 
 //
 // TODO: Sketch the structure of your model and declare its operations.
