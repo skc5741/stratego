@@ -6,6 +6,8 @@
 
 using namespace ge211;
 
+
+
 // You can change this or even determine it some other way:
 static int const grid_size = 36;
 
@@ -22,7 +24,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     set.add_sprite(background_sprite, {0,0}, 0);
 
     // Initialize mouse piece
-    ge211:Position circle_center = mouse_pos;
+    ge211::Position circle_center = mouse_pos;
     circle_center = circle_center.left_by(piece_rad);
     circle_center = circle_center.up_by(piece_rad);
     if (model_.turn() == Player::red)
