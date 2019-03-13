@@ -2,26 +2,29 @@
 
 using namespace ge211;
 
-Model::Model(int size)
-        : board_({size, size})
-{ }
+Model::Model()
+{
+    board_ = Rectangle::from_top_left({0,0},{10,10});
+    lake_1 = Rectangle::from_top_left({2,4},{2,2});
+    lake_2 = Rectangle::from_top_left({6,4},{2,2});
+}
 
 Rectangle Model::board() const
 {
-    return board_.all_positions();
+    return board_;
 }
 
 Piece Model::operator[](Position pos) const
 {
-    for(Piece pc : blue_army) {
+    for(Piece pc : blue_army_) {
         if(pc.position() == pos)
             return pc;
     }
-    for(Piece pc : red_army) {
+    for(Piece pc : red_army_) {
         if(pc.position() == pos)
             return pc;
     }
-    return empty_piece;
+    return empty_piece_;
 }
 
 // Checks to see that the given position is valid for setup placement for a certain plyr

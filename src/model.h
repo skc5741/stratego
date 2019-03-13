@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ge211.h>
-#include <board.h>
 #include "player.h"
 #include "piece.h"
 
@@ -32,7 +31,7 @@ public:
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if `size` is less than 2
 //    or greater than 8.
-    explicit Model(int size = 10);
+    explicit Model();
 
 // Returns a rectangle containing all the positions of the board.
 // This can be used to iterate over the positions.
@@ -81,10 +80,12 @@ private:
 
     Player turn_ = Player::red;
     Player winner_ = Player::neither;
-    Board board_;
-    std::vector<Piece> blue_army;
-    std::vector<Piece> red_army;
-    Piece empty_piece;
+    ge211::Rectangle board_;
+    ge211::Rectangle lake_1;
+    ge211::Rectangle lake_2;
+    std::vector<Piece> blue_army_;
+    std::vector<Piece> red_army_;
+    Piece empty_piece_;
 
 //
 //  Setup helper functions

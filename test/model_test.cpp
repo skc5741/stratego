@@ -65,7 +65,7 @@ TEST_CASE("Test 3") {
     CHECK(!t.is_input_valid(2));
 }
 
-TEST_CASE("Test 4") {
+TEST_CASE("Test Batt") {
     Piece p1(Player::red, 6); // Captain
     Piece p2(Player::blue, 8);  // Colonel
     Model m;
@@ -74,11 +74,11 @@ TEST_CASE("Test 4") {
     p1.place_position({0,0});
     CHECK(t.battleLoser(p1, p2) == p1);  // Colonel should win, std val comparison
     t.battle(p1, p2);
-    CHECK(p1.alive() == true); // Bomb should be defused
-    CHECK(p2.alive() == false); // Bomb should be defused
+    CHECK(p1.alive() == false); // Captain should be dead
+    CHECK(p2.alive() == true); // Colonel should be fine
 }
 
-TEST_CASE("Test 5") {
+TEST_CASE("Test Flag Capture") {
     Piece p1(Player::red, 3); // miner
     Piece p2(Player::blue, 1); // val of flag
     Model m;
@@ -89,11 +89,14 @@ TEST_CASE("Test 5") {
     CHECK(m.winner() == Player::red); // Checks winner
 }
 
-TEST_CASE("Test 6") {
+TEST_CASE("Test Bomb Defuses") {
     Piece p1(Player::red, 3); // miner
     Piece p2(Player::blue, 12); // bomb
-    CHECK(battleLoser(p1, p2) == p2); // Miner should defuse bomb, miner should win
-    battle(p1, p2);
-    CHECK(p1.live = true); // Bomb should be defused
-    CHECK(p2.live = false); // Bomb should be defused
+    Model m;
+    Test_access t{m};
+
+    CHECK(t.battleLoser(p1, p2) == p2); // Miner should defuse bomb, miner should win
+    t.battle(p1, p2);
+    CHECK(p1.alive() == true); // Miner should be fine
+    CHECK(p2.alive() == false); // Bomb should be defused
 }
