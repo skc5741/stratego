@@ -7,9 +7,7 @@ class Controller : public ge211::Abstract_game
 {
 public:
 
-    explicit Controller(int size = 10);
-
-    Controller(int width, int height);
+    explicit Controller();
 
 protected:
 

@@ -3,7 +3,8 @@
 #include "piece.h"
 #include "player.h"
 
-#include "../.eecs211/lib/ge211/include/ge211_sprites.h"
+//#include "../.eecs211/lib/ge211/include/ge211.h"
+//#include <ge211.h>
 
 #include <iostream>
 #include <vector>
