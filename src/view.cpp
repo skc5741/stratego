@@ -6,8 +6,6 @@
 
 using namespace ge211;
 
-
-
 // You can change this or even determine it some other way:
 static int const grid_size = 36;
 
@@ -91,7 +89,7 @@ Dimensions View::initial_window_dimensions() const
 std::string View::initial_window_title() const
 {
     // You can change this if you want:
-    return "Othello";
+    return "MotherFucking Stratego";
 }
 
 ge211::Position View::pos_to_grid(ge211::Position pos) const {

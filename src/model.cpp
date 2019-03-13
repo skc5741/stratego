@@ -9,6 +9,10 @@ Model::Model()
     lake_2 = Rectangle::from_top_left({6,4},{2,2});
 }
 
+Rectangle Model::board() const {
+    return board_;
+}
+
 Piece Model::operator[](Position pos) const
 {
     for(Piece pc : blue_army_) {

@@ -35,12 +35,6 @@
 //  Model Constants
 //
 
-ge211::Rectangle board_;
-ge211::Rectangle lake_1;
-ge211::Rectangle lake_2;
-
-std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
-
 //
 //  Model Classes
 //
@@ -48,6 +42,12 @@ std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,
 // Whole state of the game
 class Model
 {
+
+    ge211::Rectangle board_;
+    ge211::Rectangle lake_1;
+    ge211::Rectangle lake_2;
+
+    std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
 
 public:
 

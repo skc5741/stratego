@@ -14,7 +14,6 @@ Controller::Controller()
 
 void Controller::draw(Sprite_set& sprites)
 {
-
     view_.draw(sprites, mouse_posn);
 }
 
