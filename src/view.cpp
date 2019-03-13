@@ -1,61 +1,105 @@
 //
 // Created by Kiara McNulty on 2019-03-12.
 //
-#pragma once
 
-#include "model.h"
-#include "player.h"
+#include "view.h"
 
-#include <string>
+using namespace ge211;
 
-ge211::Color const space_color    {0, 235, 0};
-ge211::Color const white_color  {235, 235, 235};
-ge211::Color const black_color   {20, 20, 20};
-ge211::Color const red_color    {235, 0, 0};
-ge211::Color const gray_color    {135, 135, 135};
+// You can change this or even determine it some other way:
+static int const grid_size = 36;
 
-class View
+View::View(Model const& model)
+        : model_(model)
+// You may want to add sprite initialization here
+{ }
+
+void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 {
-public:
-    explicit View(Model const&);
+    // TODO, PROBABLY
 
-    // You will probably want to add arguments here so that the
-    // controller can communicate UI state (such as a mouse or
-    // cursor position):
-    void draw(ge211::Sprite_set& set, ge211::Position pos);
+    // Initialize better background
+    set.add_sprite(background_sprite, {0,0}, 0);
 
-    ge211::Dimensions initial_window_dimensions() const;
+    // Initialize mouse piece
+    ge211:Position circle_center = mouse_pos;
+    circle_center = circle_center.left_by(piece_rad);
+    circle_center = circle_center.up_by(piece_rad);
+    if (model_.turn() == Player::light)
+        set.add_sprite(light_sprite_, circle_center, 5);
+    else if (model_.turn() == Player::dark)
+        set.add_sprite(dark_sprite_, circle_center, 5);
 
-    std::string initial_window_title() const;
+    for(int x = 0; x < model_.board().width; x++) {
+        for(int y = 0; y < model_.board().height; y++) {
 
-    ge211::Position pos_to_grid(ge211::Position) const;
+            // Initialize board spaces
+            set.add_sprite(space_sprite_, grid_to_pos({x,y}), 1);
 
-    ge211::Position grid_to_pos(ge211::Position) const;
+            // Initialize board pieces
+            if(model_[{x, y}] != Player::neither) {
+                ge211::Position pos = grid_to_pos({x,y});
+                pos.x += (space_dim/2 - piece_rad);
+                pos.y += (space_dim/2 - piece_rad);
 
-private:
-    Model const& model_;
+                if (model_[{x, y}] == Player::light)
+                    set.add_sprite(light_sprite_, pos, 3);
+                else if (model_[{x, y}] == Player::dark)
+                    set.add_sprite(dark_sprite_, pos, 3);
+            }
 
-    int space_dim = 50;
-    int piece_rad = 21;
-    int marker_rad = 8;
-    int spacing = 5;
+            // Initialize move markers
+            if (model_.find_move({x,y})) {
+                ge211::Position pos = grid_to_pos({x,y});
+                pos.x += (space_dim/2 - marker_rad);
+                pos.y += (space_dim/2 - marker_rad);
 
-    ge211::Rectangle_sprite    const    // Dimensions, color
-            space_sprite_    {{ space_dim, space_dim }, space_color};
-    ge211::Rectangle_sprite    const    // Dimensions, color
-            red_sprite_    {{ space_dim, space_dim }, red_color};
-    ge211::Rectangle_sprite    const    // Dimensions, color
-            gray_sprite_    {{ space_dim, space_dim }, gray_color};
-    ge211::Circle_sprite    const       // Radius, color
-            light_sprite_    { piece_rad,  white_color};
-    ge211::Circle_sprite    const       // Radius, color
-            dark_sprite_    { piece_rad,  black_color};
-    ge211::Circle_sprite    const       // Radius, color
-            marker_sprite_    { marker_rad,  red_color};
-    ge211::Rectangle_sprite  const      // Dimensions, color
-            background_sprite {{ model_.board().dimensions().width
-                                 * (space_dim + spacing) + spacing,
-                                 model_.board().dimensions().height
-                                 * (space_dim + spacing) + spacing },
-                               gray_color};
-};
+                set.add_sprite(marker_sprite_, pos, 4);
+            }
+
+            // Red Squares
+            ge211::Position grid_pos = pos_to_grid(mouse_pos);
+            if(model_.find_move(grid_pos)) {
+                Move move = *model_.find_move(grid_pos);
+                if (move.second[{x, y}]) {
+                    ge211::Rectangle rec;
+                    set.add_sprite(red_sprite_, grid_to_pos({x,y}), 2);
+                }
+            }
+
+            // If game is over, do something cool
+            if(model_.is_game_over()) {
+                if(model_[{x,y}] != model_.winner()) {
+                    set.add_sprite(red_sprite_, grid_to_pos({x,y}), 2);
+                }
+            }
+        }
+    }
+}
+
+Dimensions View::initial_window_dimensions() const
+{
+    // You can change this if you want:
+    return { model_.board().dimensions().width
+             * (space_dim + spacing) + spacing,
+             model_.board().dimensions().height
+             * (space_dim + spacing) + spacing };
+}
+
+std::string View::initial_window_title() const
+{
+    // You can change this if you want:
+    return "Othello";
+}
+
+ge211::Position View::pos_to_grid(ge211::Position pos) const {
+    return { (pos.x - spacing) / (space_dim + spacing),
+             (pos.y - spacing) / (space_dim + spacing)};
+}
+
+ge211::Position View::grid_to_pos(ge211::Position grid_pos) const {
+    ge211::Position pos = { grid_pos.x * (space_dim + spacing) + spacing,
+                            grid_pos.y * (space_dim + spacing) + spacing };
+    return pos;
+}
+
