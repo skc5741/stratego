@@ -12,7 +12,7 @@ using namespace ge211;
 
 struct Test_access {
     Model &m_;
-    Board &board() {return m_.board_;}
+    ge211::Rectangle &board() {return m_.board_;}
     bool setup_is_valid_space(Position pos, Player plyr)
         { return m_.setup_is_valid_space(pos, plyr); }
     bool is_input_valid(int x) { return m_.is_input_valid(x); }

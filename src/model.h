@@ -12,9 +12,9 @@
 //  Model Constants
 //
 
-ge211::Dimensions const space_dims;
-ge211::Dimensions const piece_dims;
-ge211::Dimensions const val_dims;
+ge211::Rectangle board_;
+ge211::Rectangle lake_1;
+ge211::Rectangle lake_2;
 
 //
 //  Model Classes
@@ -80,9 +80,6 @@ private:
 
     Player turn_ = Player::red;
     Player winner_ = Player::neither;
-    ge211::Rectangle board_;
-    ge211::Rectangle lake_1;
-    ge211::Rectangle lake_2;
     std::vector<Piece> blue_army_;
     std::vector<Piece> red_army_;
     Piece empty_piece_;
