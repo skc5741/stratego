@@ -33,4 +33,5 @@ void Piece::change_position(ge211::Position pos) {
 
 void Piece::kill() {
     live = false;
+    pos = {-1, -1};
 }
