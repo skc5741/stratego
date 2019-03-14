@@ -43,14 +43,7 @@
 class Model
 {
 
-    ge211::Rectangle board_;
-    ge211::Rectangle lake_1;
-    ge211::Rectangle lake_2;
-
     std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
-
-    bool red_reveal = false;
-    bool blue_reveal = false;
 
 public:
 
@@ -61,21 +54,19 @@ public:
 //    or greater than 8.
     explicit Model();
 
-// Returns a rectangle containing all the positions of the board.
-// This can be used to iterate over the positions.
-    ge211::Rectangle board() const;
-
 // Returns whether the game is finished. This is true when neither
 // plyr can move.
-    bool is_game_over() const
-    { return turn() == Player::neither; }
+    bool is_game_over() const { return turn() == Player::neither; }
 
-    // Returns the winner of the game.
-    Player winner() const
-    { return winner_; }
+    Player winner() const { return winner_; } // Returns the winner of the game.
+    ge211::Rectangle board() const { return board_; } // Returns board
+    ge211::Rectangle lake_1() const { return lake_1_; } // Returns lake_1
+    ge211::Rectangle lake_2() const { return lake_2_; } // Returns lake_2
+    std::vector<Piece> blue_army() const{ return blue_army_; } // Returns blue_army_
+    std::vector<Piece> red_army() const{ return red_army_; }  // Returns red_army_
+    Piece empty_piece() const { return empty_piece_; } // Returns empty_piece
 
-// Returns the current turn, or `Player::neither` if the game is
-// over.
+// Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
     { return turn_; }
 
@@ -125,6 +116,11 @@ private:
     std::vector<Piece> red_army_;
     Piece empty_piece_;
     size_t place_iter = 0;
+    bool red_reveal = false;
+    bool blue_reveal = false;
+    ge211::Rectangle board_;
+    ge211::Rectangle lake_1_;
+    ge211::Rectangle lake_2_;
 
     bool setup = true;
 
@@ -158,10 +154,10 @@ private:
     bool is_valid_space(ge211::Position);
 
 // Hides the values of each army from sight of the user
-    bool hide_board();
+    void hide_board();
 
 // Reveals the values of the given army for the user
-    bool reveal_side(Player);
+    void reveal_side(Player);
 
 // There will be caption text that will provide the user with basic info about the gameplay
 // Update the caption text to be the given string

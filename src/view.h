@@ -40,6 +40,9 @@ private:
     int piece_rad = 21;
     int marker_rad = 8;
     int spacing = 5;
+    int txt_space = 100;
+
+    ge211::Font font;
 
     // TODO: Add any private members you need, such as sprites
     ge211::Rectangle_sprite    const    // Dimensions, color
@@ -52,10 +55,12 @@ private:
             background_sprite {{ model_.board().dimensions().width
                                  * (space_dim + spacing) + spacing,
                                  model_.board().dimensions().height
-                                 * (space_dim + spacing) + spacing },
+                                 * (space_dim + spacing) + spacing + txt_space},
                                gray_color};
     ge211::Rectangle_sprite    const    // Dimensions, color
-            lake_sprite_    {{ space_dim, space_dim }, green_color};
+            lake_sprite_    {{ space_dim*2+spacing, space_dim*2+spacing }, blue_color};
+    ge211::Text_sprite      const
+            text_sprite_
 };
 
 // There will be caption text that will provide the user with basic info about the gameplay

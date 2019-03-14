@@ -5,12 +5,8 @@ using namespace ge211;
 Model::Model()
 {
     board_ = Rectangle::from_top_left({0,0},{10,10});
-    lake_1 = Rectangle::from_top_left({2,4},{2,2});
-    lake_2 = Rectangle::from_top_left({6,4},{2,2});
-}
-
-Rectangle Model::board() const {
-    return board_;
+    lake_1_ = Rectangle::from_top_left({2,4},{2,2});
+    lake_2_ = Rectangle::from_top_left({6,4},{2,2});
 }
 
 Piece Model::operator[](Position pos) const
