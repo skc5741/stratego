@@ -13,7 +13,7 @@ Rectangle Model::board() const {
     return board_;
 }
 
-Piece Model::operator[](Position pos) const
+Piece Model::get_pos(Position pos) const
 {
     for(Piece pc : blue_army_) {
         if(pc.position() == pos)
@@ -48,9 +48,8 @@ bool Model::is_value_valid(int x) {
 }
 
 // Place a piece on the game board and update val.
-void Model::place_piece(int x, ge211::Position pos) {
-    // TODO
-
+void Model::place_piece(Piece pc, ge211::Position pos) {
+    pc.change_position(pos);
 }
 
 // Complete the setup process and move into gameplay mode
@@ -74,8 +73,11 @@ int Model::get_next_val() {
 
 // Determines whether or not the given piece is movable in gameplay
 bool Model::is_movable(ge211::Position pos) {
-    //if (board_[pos] == turn() && board_[pos].value())
-    return true;
+    Piece pc = get_pos(pos);
+    if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11)
+        return true;
+    else
+        return false;
 }
 
 // Checks to see if the given plyr has any moves to make
@@ -84,13 +86,33 @@ bool Model::is_playable(Player plyr) {
 }
 
 // Updates next_moves_ based upon the selected piece.
-void Model::compute_next_moves(Piece pc) {
+std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
+    std::vector<ge211::Position> moves;
+
+    /* if piece is scout, position vector is bigger
+     * otherwise, position vector is left, right, up back
+     *
+     * for each pos in positions, check is valid space
+     *
+     * if it is, add it to moves, if not, dont
+     *
+     *
+     */
+
+    //do this based on is_valid_space
     // TODO
+
 }
+
+// may need to add is_valid_move? left, right, up, down, except for that one piece...
 
 // Determines whether or not the given position is a valid, movable pos on the board
 bool Model::is_valid_space(ge211::Position pos) {
-    return true; // TODO
+    // add a check for if the position is on the board!!!!!!
+    if (get_pos(pos).player() != turn())
+        return true;
+    else
+        return false;
 }
 
 // Updates turn_ to the next plyr, implements secrecy functionality along the way
@@ -120,11 +142,7 @@ void Model::reveal_side(Player plyr) {
     // TODO
 }
 
-// There will be caption text that will provide the user with basic info about the gameplay
-// Update the caption text to be the given string
-void Model::update_text(std::string str) {
-    // TODO
-}
+
 
 
 // Ends game, announces winner

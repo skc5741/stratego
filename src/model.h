@@ -79,13 +79,13 @@ public:
     bool is_setup() const
     { return setup; };
 
-// Returns the plyr at the given position, or `Player::neither` if
+// Returns the piece at the given position, or `Player::neither` if
 // the position is unoccupied.
 //
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if the position is out of
 //    bounds.
-    Piece operator[](ge211::Position) const;
+    Piece get_pos(ge211::Position) const;
 
 // Attempts to play a move at the given position for the current
 // plyr. If successful, advances the state of the game to the
@@ -99,7 +99,7 @@ public:
     void play_move(ge211::Position);
 
     // Place a piece on the game board and update val.
-    void place_piece(int, ge211::Position);
+    void place_piece(Piece, ge211::Position);
 
     // Returns value of piece that is next to be placed
     int get_next_val();
@@ -149,7 +149,7 @@ private:
     bool is_playable(Player);
 
 // Updates next_moves_ based upon the selected piece.
-    void compute_next_moves(Piece);
+    std::vector<ge211::Position> compute_next_moves(Piece);
 
 // Determines whether or not the given position is a valid, movable pos on the board
     bool is_valid_space(ge211::Position);
