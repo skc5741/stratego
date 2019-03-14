@@ -54,6 +54,10 @@ private:
                                  model_.board().dimensions().height
                                  * (space_dim + spacing) + spacing },
                                gray_color};
+    ge211::Rectangle_sprite    const    // Dimensions, color
+            lake_sprite_    {{ space_dim, space_dim }, green_color};
 };
 
-
+// There will be caption text that will provide the user with basic info about the gameplay
+// Update the caption text to be the given string
+void update_text(std::string);

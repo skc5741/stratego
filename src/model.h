@@ -49,6 +49,9 @@ class Model
 
     std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
 
+    bool red_reveal = false;
+    bool blue_reveal = false;
+
 public:
 
 // Constructs a model with `size` as both its width and height.
@@ -155,10 +158,10 @@ private:
     bool is_valid_space(ge211::Position);
 
 // Hides the values of each army from sight of the user
-    void hide_board();
+    bool hide_board();
 
 // Reveals the values of the given army for the user
-    void reveal_side(Player);
+    bool reveal_side(Player);
 
 // There will be caption text that will provide the user with basic info about the gameplay
 // Update the caption text to be the given string
