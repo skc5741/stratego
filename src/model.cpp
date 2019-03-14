@@ -74,7 +74,8 @@ int Model::get_next_val() {
 
 // Determines whether or not the given piece is movable in gameplay
 bool Model::is_movable(ge211::Position pos) {
-    return true; // TODO
+    //if (board_[pos] == turn() && board_[pos].value())
+    return true;
 }
 
 // Checks to see if the given plyr has any moves to make
@@ -108,6 +109,7 @@ void Model::advance_turn() {
     }
 }
 
+
 // Hides the values of each army from sight of the user
 void Model::hide_board() {
     // TODO
@@ -124,14 +126,16 @@ void Model::update_text(std::string str) {
     // TODO
 }
 
+
 // Ends game, announces winner
 void Model::end_game() {
     // TODO
 }
 
+
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
 void Model::battle(Piece pc1, Piece pc2) {
-    // TODO
+    deleteLoser(battleLoser(pc1, pc2));
 }
 
 //
@@ -140,12 +144,51 @@ void Model::battle(Piece pc1, Piece pc2) {
 
 // Determines the loser of the battle between the two given pieces
 Piece Model::battleLoser(Piece pc1, Piece pc2) {
-    return empty_piece_; // TODO
+    if (pc2.value() == 0) {
+        winner_ = pc1.player();
+        end_game();
+    }
+    /*
+    Player Values:
+    0: Flag
+    1: Spy
+    2: Scout (normal)
+    3: Miner (normal)
+    4: Sergeant (normal)
+    5: Lieutenant (normal)
+    6: Captain (normal)
+    7: Major (normal)
+    8: Colonel (normal)
+    9: General (normal)
+    10: Marshall (normal)
+    11: Bomb
+     */
+    else if (pc2.value() == 11)
+    {
+        if (pc1.value() == 3)
+            return pc1;
+        else
+            return pc2;
+    }
+    else if (pc1.value() == 1)
+    {
+        if (pc2.value() == 10)
+            return pc1;
+        else
+            return pc2;
+    }
+    else
+    {
+        if (pc1.value() >= pc2.value())
+            return pc2;
+        else
+            return pc1;
+    }
 }
 
 // Removes the loser from gameplay
 void Model::deleteLoser(Piece pc) {
-    // TODO
+    pc.kill();
 }
 
 // Attempts to play a move at the given position for the current
@@ -157,6 +200,7 @@ void Model::deleteLoser(Piece pc) {
 //  - Throws `ge211::Client_logic_error` if the move is not currently
 //    allowed for the current plyr.
 //
+
 void Model::play_move(Position pos) {
     // TODO
 }
