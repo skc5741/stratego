@@ -65,6 +65,7 @@ public:
     std::vector<Piece> blue_army() const{ return blue_army_; } // Returns blue_army_
     std::vector<Piece> red_army() const{ return red_army_; }  // Returns red_army_
     Piece empty_piece() const { return empty_piece_; } // Returns empty_piece
+    std::string msg() const { return msg_; }
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
@@ -121,6 +122,7 @@ private:
     ge211::Rectangle board_;
     ge211::Rectangle lake_1_;
     ge211::Rectangle lake_2_;
+    std::string msg_ = "MotherFucking Stratego!";
 
     bool setup = true;
 

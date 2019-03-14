@@ -19,6 +19,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     // Initialize better background
     set.add_sprite(background_sprite, {0,0}, 0);
 
+    // Initialize text
+    set.add_sprite(text_sprite_, { 10, model_.board().dimensions().height
+                                 * (space_dim + spacing) + spacing + 10});
+
     // Initialize mouse piece
     ge211::Position circle_center = mouse_pos;
     circle_center = circle_center.left_by(piece_rad);

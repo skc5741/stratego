@@ -60,7 +60,7 @@ private:
     ge211::Rectangle_sprite    const    // Dimensions, color
             lake_sprite_    {{ space_dim*2+spacing, space_dim*2+spacing }, blue_color};
     ge211::Text_sprite      const
-            text_sprite_
+            text_sprite_ { model_.msg() , font};
 };
 
 // There will be caption text that will provide the user with basic info about the gameplay
