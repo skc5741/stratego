@@ -50,6 +50,7 @@ bool Model::is_value_valid(int x) {
 // Place a piece on the game board and update val.
 void Model::place_piece(Piece pc, ge211::Position pos) {
     pc.change_position(pos);
+    pc.alive();
 }
 
 // Complete the setup process and move into gameplay mode
@@ -57,14 +58,15 @@ void Model::finish_setup() {
     setup = false;
 }
 
-int Model::get_next_val() {
+Piece Model::get_next_piece() {
+    /*
     int x = avail_vals[place_iter];
     place_iter++;
     if(place_iter >= avail_vals.size() && turn_ == Player::red)
         place_iter = 0;
     if(place_iter >= avail_vals.size() && turn_ == Player::blue)
         finish_setup();
-    return x;
+    return x; */
 }
 
 //
@@ -87,29 +89,50 @@ bool Model::is_playable(Player plyr) {
 
 // Updates next_moves_ based upon the selected piece.
 std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
-    std::vector<ge211::Position> moves;
+    std::vector<ge211::Position> valid_moves;
+    std::vector<ge211::Position> possible_moves;
 
-    /* if piece is scout, position vector is bigger
-     * otherwise, position vector is left, right, up back
-     *
-     * for each pos in positions, check is valid space
-     *
-     * if it is, add it to moves, if not, dont
-     *
-     *
-     */
+    int x_pos = pc.position().x;
+    int y_pos = pc.position().y;
 
-    //do this based on is_valid_space
-    // TODO
+    if (pc.value() != 2)
+    {
+        possible_moves.push_back({x_pos + 1, y_pos});
+        possible_moves.push_back({x_pos - 1, y_pos});
+        possible_moves.push_back({x_pos, y_pos + 1});
+        possible_moves.push_back({x_pos, y_pos - 1});
+    }
+    else
+    {
+        //add possible check: extra move can only be at an enemy
+        // also, there are some duplicates in here...
+
+        /*
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = x_pos -1; j < x_pos + 2; j++)
+                possible_moves.push_back({j, i});
+            for (int k = y_pos -1; k < x_pos + 2; k++)
+                possible_moves.push_back({i, k});
+        }
+         */
+    }
+
+    for (Position p : possible_moves)
+    {
+        if (is_valid_space(p))
+            valid_moves.push_back(p);
+    }
+
+    return valid_moves;
 
 }
 
-// may need to add is_valid_move? left, right, up, down, except for that one piece...
-
 // Determines whether or not the given position is a valid, movable pos on the board
 bool Model::is_valid_space(ge211::Position pos) {
-    // add a check for if the position is on the board!!!!!!
-    if (get_pos(pos).player() != turn())
+    if (get_pos(pos).position().x == -1)
+        return false;
+    else if (get_pos(pos).player() != turn())
         return true;
     else
         return false;

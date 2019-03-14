@@ -27,8 +27,8 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     ge211::Position grid_pos = view_.pos_to_grid(position);
     if (model_.is_setup())
     {
-        int val = model_.get_next_val();
-        model_.place_piece(val, grid_pos);
+        Piece pc = model_.get_next_piece();
+        model_.place_piece(pc, grid_pos);
     }
     else
     {

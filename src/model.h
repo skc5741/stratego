@@ -49,6 +49,13 @@ class Model
 
     std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
 
+    /*
+    for (int i = 0; i < vals.size(); i++) {
+        red_army_.push_back(Piece(Player::red, avail_vals[i]));
+        red_army_.push_back(Piece(Player::red, avail_vals[i]));
+    }
+     */
+
 public:
 
 // Constructs a model with `size` as both its width and height.
@@ -102,7 +109,7 @@ public:
     void place_piece(Piece, ge211::Position);
 
     // Returns value of piece that is next to be placed
-    int get_next_val();
+    Piece get_next_piece();
 
     // Updates turn_ to the next plyr, implements secrecy functionality along the way
     void advance_turn();
@@ -128,6 +135,7 @@ private:
 //
 //  Setup helper functions
 //
+
 
 // Checks to see that the given position is valid for setup placement for a certain plyr
     bool setup_is_valid_space(ge211::Position, Player);
