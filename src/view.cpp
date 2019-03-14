@@ -42,17 +42,17 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
             // Initialize board spaces
             set.add_sprite(space_sprite_, grid_to_pos({x,y}), 1);
-
-            // If game is over, do something cool
-            if(model_.is_game_over()) {
-                if(model_[{x,y}].player() != model_.winner()) {
-                    set.add_sprite(red_sprite_, grid_to_pos({x,y}), 2);
-                }
-            }
         }
     }
 
     for(Piece pc : model_.blue_army()) {
+
+        // If game is over, do something cool
+        if(model_.is_game_over()) {
+            if(pc.player() != model_.winner()) {
+                set.add_sprite(red_sprite_, grid_to_pos(pc.position()), 2);
+            }
+        }
 
         // Initialize board pieces
         if(pc != model_.empty_piece()) {
