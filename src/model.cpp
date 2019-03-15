@@ -152,20 +152,9 @@ void Model::advance_turn() {
     else
     {
         turn_ = other_player(prev_turn_);
-        if (prev_turn_ == Player::blue) {
-            turn_ = Player::red;
-            if (!is_playable(Player::red)) {
-                winner_ = Player::blue;
-                end_game();
-            }
-        }
-
-        else if (prev_turn_ == Player::red) {
-            turn_ = Player::blue;
-            if (!is_playable(Player::blue)) {
-                winner_ = Player::red;
-                end_game();
-            }
+        if(!is_playable(turn_)) {
+            winner_ = other_player(turn_);
+            end_game();
         }
         prev_turn_ = Player::neither;
     }
@@ -252,8 +241,8 @@ void Model::set_msg(std::string str) {
 
 void Model::setup_play(ge211::Position grid_pos) {
     if(get_pos(grid_pos) == empty_piece() && setup_is_valid_space(grid_pos, turn_)) {
-        int val = iterate_next_val();
-        Piece pc(turn(), val);
+        Piece pc(turn(), get_next_val());
         place_piece(pc, grid_pos);
+        iterate_next_val();
     }
 }
