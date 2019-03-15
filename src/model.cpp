@@ -81,9 +81,10 @@ int Model::get_next_val() {
 // Determines whether or not the given piece is movable in gameplay
 bool Model::is_movable(ge211::Position pos) {
     Piece pc = get_pos(pos);
-    if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11)
-        return true;
-    else
+    if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11) {
+        if (!compute_next_moves(pc).empty())
+            return true;
+    }
         return false;
 }
 

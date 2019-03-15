@@ -35,8 +35,17 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     }
     else
     {
-        model_.play_move(grid_pos);
-        model_.set_msg("Move played!");
+        if (is_piece_selected == false) {
+            if (model_.is_movable(position)) {
+                Piece pc_to_move_ = model_.get_pos(position);
+                is_piece_selected = true;
+            }
+        }
+        else {
+            model_.play_move(pc_to_move_, grid_pos);
+            model_.set_msg("Move played!");
+            is_piece_selected = false;
+        }
     }
 }
 

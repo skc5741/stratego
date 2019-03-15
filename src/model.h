@@ -74,6 +74,7 @@ public:
     bool is_setup() const
     { return setup; };
 
+
 // Returns the piece at the given position, or `Player::neither` if
 // the position is unoccupied.
 //
@@ -104,6 +105,8 @@ public:
 
     // Updates turn_ to the next plyr, implements secrecy functionality along the way
     void advance_turn();
+
+    bool is_movable(ge211::Position);
 
     friend struct Test_access;
 
@@ -147,7 +150,6 @@ private:
 //
 
 // Determines whether or not the given piece is movable in gameplay
-    bool is_movable(ge211::Position);
 
 // Checks to see if the given plyr has any moves to make
     bool is_playable(Player);
