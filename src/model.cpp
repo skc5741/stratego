@@ -88,8 +88,20 @@ bool Model::is_movable(ge211::Position pos) {
 // Checks to see if the given plyr has any moves to make
 bool Model::is_playable(Player plyr) {
     if (plyr == Player::red) {
-
+        for (Piece pc : red_army_) {
+            if (!compute_next_moves(pc).empty())
+                return true;
+        }
+        return false;
     }
+    else {
+        for (Piece pc : blue_army_) {
+            if (!compute_next_moves(pc).empty())
+                return true;
+        }
+        return false;
+    }
+
 }
 
 // Updates next_moves_ based upon the selected piece.
@@ -100,7 +112,7 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
     int x_pos = pc.position().x;
     int y_pos = pc.position().y;
 
-    if (pc.value() != 2)
+    if (pc.value() != -1) // CHANGE THIS TO TWO FOR SCOUT
     {
         possible_moves.push_back({x_pos + 1, y_pos});
         possible_moves.push_back({x_pos - 1, y_pos});
