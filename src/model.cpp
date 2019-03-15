@@ -63,12 +63,14 @@ int Model::get_next_val() {
 
     int x = avail_vals[place_iter];
     place_iter++;
-    if(place_iter >= avail_vals.size() && turn_ == Player::red)
+    if(place_iter >= avail_vals.size() && turn_ == Player::red) {
         place_iter = 0;
         advance_turn();
-    if(place_iter >= avail_vals.size() && turn_ == Player::blue)
+    }
+    if(place_iter >= avail_vals.size() && turn_ == Player::blue) {
         advance_turn();
         finish_setup();
+    }
     return x;
 }
 
@@ -220,7 +222,7 @@ void Model::deleteLoser(Piece pc) {
 //    allowed for the current plyr.
 //
 
-void Model::play_move(Position pos) {
+void Model::play_move(Piece pc, Position pos) {
     // TODO
 }
 

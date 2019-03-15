@@ -94,7 +94,7 @@ public:
 
     void set_msg(std::string str);
 
-    void play_move(ge211::Position);
+    void play_move(Piece, ge211::Position);
 
     // Place a piece on the game board and update val.
     void place_piece(Piece, ge211::Position);
