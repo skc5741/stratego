@@ -17,6 +17,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 {
     // TODO, PROBABLY
 
+    //
+    //  !!! Constant Setup !!!
+    //
+
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
@@ -45,18 +49,6 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         set.add_sprite(turn_txt, {10, line_to_pixel(0)});
     }
 
-    // If in setup mode:
-    if(model_.is_setup()) {
-
-        // Initialize mouse piece, turn data
-        if (model_.turn() == Player::red) {
-            set.add_sprite(red_sprite_, circle_center, 5);
-        }
-        else if (model_.turn() == Player::blue) {
-            set.add_sprite(blue_sprite_, circle_center, 5);
-        }
-    }
-
     // For each board position
     for(int x = 0; x < model_.board().width; x++) {
         for(int y = 0; y < model_.board().height; y++) {
@@ -66,8 +58,22 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         }
     }
 
+    //
+    //  !!! Setup Mode !!!
+    //
+
+    if(model_.is_setup()) {
+        // Initialize mouse piece, turn data
+        if (model_.turn() == Player::red) {
+            set.add_sprite(red_sprite_, circle_center, 5);
+        }
+        else if (model_.turn() == Player::blue) {
+            set.add_sprite(blue_sprite_, circle_center, 5);
+        }
+    }
+
+    // For every piece in the blue army
     for(Piece pc : model_.blue_army()) {
-        update_text(msg_txt, "Blue army!");
 
         // If game is over, do something cool
         if(model_.is_game_over()) {
@@ -82,12 +88,11 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             pos.x += (space_dim / 2 - piece_rad);
             pos.y += (space_dim / 2 - piece_rad);
             set.add_sprite(blue_sprite_, pos, 3);
-            update_text(msg_txt, "Blue sprite created!");
         }
     }
 
+    // For every piece in the red army
     for(Piece pc : model_.red_army()) {
-        update_text(msg_txt, "Red army!");
 
         // If game is over, do something cool
         if(model_.is_game_over()) {
@@ -102,10 +107,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             pos.x += (space_dim / 2 - piece_rad);
             pos.y += (space_dim / 2 - piece_rad);
             set.add_sprite(red_sprite_, pos, 3);
-            update_text(msg_txt, "Red sprite created!");
         }
     }
-    set.add_sprite(turn_txt, { 10, line_to_pixel(0)});
+
+    set.add_sprite(turn_txt, {10, line_to_pixel(0)});
     set.add_sprite(msg_txt, { 10, line_to_pixel(1)});
 }
 

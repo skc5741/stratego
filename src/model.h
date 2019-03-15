@@ -65,7 +65,7 @@ public:
     std::vector<Piece> blue_army() const{ return blue_army_; } // Returns blue_army_
     std::vector<Piece> red_army() const{ return red_army_; }  // Returns red_army_
     Piece empty_piece() const { return empty_piece_; } // Returns empty_piece
-    std::string msg() const { return msg_; }
+    std::string msg() const { return msg_; } // Returns msg
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
@@ -97,11 +97,17 @@ public:
 
     void play_move(Piece, ge211::Position);
 
+    // Sets up piece
+    void setup_play(ge211::Position);
+
     // Place a piece on the game board and update val.
     void place_piece(Piece, ge211::Position);
 
     // Returns value of piece that is next to be placed
     int get_next_val();
+
+    // Moves on to the next value to be placed
+    int iterate_next_val();
 
     // Updates turn_ to the next plyr, implements secrecy functionality along the way
     void advance_turn();
@@ -137,7 +143,6 @@ private:
 //
 //  Setup helper functions
 //
-
 
 // Checks to see that the given position is valid for setup placement for a certain plyr
     bool setup_is_valid_space(ge211::Position, Player);
