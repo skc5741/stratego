@@ -56,7 +56,7 @@ public:
 
 // Returns whether the game is finished. This is true when neither
 // plyr can move.
-    bool is_game_over() const { return turn() == Player::neither; }
+    bool is_game_over() const { return winner_ != Player::neither; };
 
     Player winner() const { return winner_; } // Returns the winner of the game.
     ge211::Rectangle board() const { return board_; } // Returns board
