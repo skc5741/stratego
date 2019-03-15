@@ -24,28 +24,21 @@ void Controller::on_mouse_move(ge211::Position position)
 
 void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
 {
-    model_.set_msg("Mouse down!");
     ge211::Position grid_pos = view_.pos_to_grid(position);
     if (model_.is_setup())
     {
-        int val = model_.get_next_val();
-        Piece pc(model_.turn(), val);
-        model_.place_piece(pc, grid_pos);
-        model_.set_msg("Piece placed: " + std::to_string(val));
+        if(model_.get_pos(grid_pos) == model_.empty_piece()) {
+            int val = model_.iterate_next_val();
+            Piece pc(model_.turn(), val);
+            model_.place_piece(pc, grid_pos);
+            model_.set_msg("Play your next piece: " +
+                           std::to_string(model_.get_next_val()));
+        }
     }
     else
     {
-        if (!is_piece_selected) {
-            if (model_.is_movable(position)) {
-                pc_to_move_ = model_.get_pos(position);
-                is_piece_selected = true;
-            }
-        }
-        else {
-            model_.play_move(pc_to_move_, grid_pos);
-            model_.set_msg("Move played!");
-            is_piece_selected = false;
-        }
+        //model_.play_move(grid_pos);
+        model_.set_msg("Move played!");
     }
 }
 

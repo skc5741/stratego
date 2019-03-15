@@ -65,7 +65,7 @@ public:
     std::vector<Piece> blue_army() const{ return blue_army_; } // Returns blue_army_
     std::vector<Piece> red_army() const{ return red_army_; }  // Returns red_army_
     Piece empty_piece() const { return empty_piece_; } // Returns empty_piece
-    std::string msg() const { return msg_; }
+    std::string msg() const { return msg_; } // Returns msg
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
@@ -102,6 +102,9 @@ public:
 
     // Returns value of piece that is next to be placed
     int get_next_val();
+
+    // Moves on to the next value to be placed
+    int iterate_next_val();
 
     // Updates turn_ to the next plyr, implements secrecy functionality along the way
     void advance_turn();
