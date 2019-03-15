@@ -145,9 +145,6 @@ private:
 // Checks to see that the given position is valid for setup placement for a certain plyr
     bool setup_is_valid_space(ge211::Position, Player);
 
-// Checks if the given input is in the range of valid plyr values.
-    bool is_value_valid(int);
-
 // Complete the setup process and move into gameplay mode
     void finish_setup();
 

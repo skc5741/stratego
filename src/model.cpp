@@ -38,10 +38,6 @@ bool Model::setup_is_valid_space(ge211::Position pos, Player plyr) {
         && pos.x <= 9);
 }
 
-// Checks if the given input is in the range of valid plyr values.
-bool Model::is_value_valid(int x) {
-    return x > 0 && x < 13;
-}
 
 // Place a piece on the game board and update val.
 void Model::place_piece(Piece pc, ge211::Position pos) {

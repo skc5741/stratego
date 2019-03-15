@@ -27,19 +27,22 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     ge211::Position grid_pos = view_.pos_to_grid(position);
     if (model_.is_setup())
     {
-        model_.setup_play(grid_pos);
+        if (model_.turn() == Player::neither)
+            model_.advance_turn();
+        else
+            model_.setup_play(grid_pos);
     }
     else
     {
         if (!is_piece_selected) {
-            if (model_.is_movable(position)) {
-                pc_to_move_ = model_.get_pos(position);
+            if (model_.is_movable(grid_pos)) {
+                pc_to_move_ = model_.get_pos(grid_pos);
                 is_piece_selected = true;
             }
         }
         else {
-            if (model_.is_valid_space(position)) {
-                model_.play_move(pc_to_move_, position);
+            if (model_.is_valid_space(grid_pos)) {
+                model_.play_move(pc_to_move_, grid_pos);
                 model_.set_msg("Move played!");
                 is_piece_selected = false;
             }
