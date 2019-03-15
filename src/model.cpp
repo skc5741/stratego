@@ -87,7 +87,9 @@ bool Model::is_movable(ge211::Position pos) {
 
 // Checks to see if the given plyr has any moves to make
 bool Model::is_playable(Player plyr) {
-    return true; // TODO
+    if (plyr == Player::red) {
+
+    }
 }
 
 // Updates next_moves_ based upon the selected piece.
