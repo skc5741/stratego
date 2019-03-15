@@ -67,6 +67,7 @@ int Model::iterate_next_val() {
 
     int x = avail_vals[place_iter];
     place_iter++;
+
     if(place_iter >= avail_vals.size() && turn_ == Player::red) {
         place_iter = 0;
         advance_turn();
