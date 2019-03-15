@@ -45,13 +45,6 @@ class Model
 
     std::vector<int> avail_vals{0,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,8,8,9,10,11,11,11,11,11,11};
 
-    /*
-    for (int i = 0; i < vals.size(); i++) {
-        red_army_.push_back(Piece(Player::red, avail_vals[i]));
-        red_army_.push_back(Piece(Player::red, avail_vals[i]));
-    }
-     */
-
 public:
 
 // Constructs a model with `size` as both its width and height.
@@ -104,7 +97,7 @@ public:
     void place_piece(Piece, ge211::Position);
 
     // Returns value of piece that is next to be placed
-    Piece get_next_piece();
+    int get_next_val();
 
     // Updates turn_ to the next plyr, implements secrecy functionality along the way
     void advance_turn();
@@ -124,8 +117,7 @@ private:
     std::vector<Piece> red_army_;
     Piece empty_piece_;
     size_t place_iter = 0;
-    bool red_reveal = false;
-    bool blue_reveal = false;
+
     ge211::Rectangle board_;
     ge211::Rectangle lake_1_;
     ge211::Rectangle lake_2_;
@@ -163,15 +155,6 @@ private:
 // Determines whether or not the given position is a valid, movable pos on the board
     bool is_valid_space(ge211::Position);
 
-// Hides the values of each army from sight of the user
-    void hide_board();
-
-// Reveals the values of the given army for the user
-    void reveal_side(Player);
-
-// There will be caption text that will provide the user with basic info about the gameplay
-// Update the caption text to be the given string
-    void update_text(std::string);
 
 // Ends game, announces winner
     void end_game();

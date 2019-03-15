@@ -54,15 +54,15 @@ void Model::finish_setup() {
     setup = false;
 }
 
-Piece Model::get_next_piece() {
-    /*
+int Model::get_next_val() {
+
     int x = avail_vals[place_iter];
     place_iter++;
     if(place_iter >= avail_vals.size() && turn_ == Player::red)
         place_iter = 0;
     if(place_iter >= avail_vals.size() && turn_ == Player::blue)
         finish_setup();
-    return x; */
+    return x;
 }
 
 //
@@ -100,6 +100,8 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
     }
     else
     {
+        // TODO
+        //scout
         //add possible check: extra move can only be at an enemy
         // also, there are some duplicates in here...
 
@@ -151,19 +153,6 @@ void Model::advance_turn() {
 }
 
 
-// Hides the values of each army from sight of the user
-void Model::hide_board() {
-    // TODO
-}
-
-// Reveals the values of the given army for the user
-void Model::reveal_side(Player plyr) {
-    // TODO
-}
-
-
-
-
 // Ends game, announces winner
 void Model::end_game() {
     // TODO
@@ -185,21 +174,7 @@ Piece Model::battleLoser(Piece pc1, Piece pc2) {
         winner_ = pc1.player();
         end_game();
     }
-    /*
-    Player Values:
-    0: Flag
-    1: Spy
-    2: Scout (normal)
-    3: Miner (normal)
-    4: Sergeant (normal)
-    5: Lieutenant (normal)
-    6: Captain (normal)
-    7: Major (normal)
-    8: Colonel (normal)
-    9: General (normal)
-    10: Marshall (normal)
-    11: Bomb
-     */
+
     else if (pc2.value() == 11)
     {
         if (pc1.value() == 3)
