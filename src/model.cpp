@@ -155,10 +155,17 @@ void Model::advance_turn() {
     else
     {
         prev_turn_ = Player::neither;
-        if (prev_turn_ == Player::blue)
+        if (prev_turn_ == Player::blue) {
             turn_ = Player::red;
-        else if (prev_turn_ == Player::red)
-            turn_ = Player::red;
+            if (!is_playable(Player::red))
+                end_game();
+        }
+
+        else if (prev_turn_ == Player::red) {
+            turn_ = Player::blue;
+            if (!is_playable(Player::blue))
+                end_game();
+        }
     }
 }
 
@@ -171,6 +178,7 @@ void Model::end_game() {
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
 void Model::battle(Piece pc1, Piece pc2) {
+    set_msg("In battle!");
     deleteLoser(battleLoser(pc1, pc2));
 }
 
