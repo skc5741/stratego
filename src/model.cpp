@@ -60,7 +60,9 @@ int Model::get_next_val() {
     place_iter++;
     if(place_iter >= avail_vals.size() && turn_ == Player::red)
         place_iter = 0;
+        advance_turn();
     if(place_iter >= avail_vals.size() && turn_ == Player::blue)
+        advance_turn();
         finish_setup();
     return x;
 }
