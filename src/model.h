@@ -91,6 +91,9 @@ public:
 //  - Throws `ge211::Client_logic_error` if the move is not currently
 //    allowed for the current plyr.
 //
+
+    void set_msg(std::string str);
+
     void play_move(ge211::Position);
 
     // Place a piece on the game board and update val.
@@ -117,11 +120,11 @@ private:
     std::vector<Piece> red_army_;
     Piece empty_piece_;
     size_t place_iter = 0;
+    std::string msg_ = "MotherFucking Stratego!";
 
     ge211::Rectangle board_;
     ge211::Rectangle lake_1_;
     ge211::Rectangle lake_2_;
-    std::string msg_ = "MotherFucking Stratego!";
 
     bool setup = true;
 

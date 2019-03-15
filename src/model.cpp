@@ -45,8 +45,13 @@ bool Model::is_value_valid(int x) {
 
 // Place a piece on the game board and update val.
 void Model::place_piece(Piece pc, ge211::Position pos) {
-    pc.change_position(pos);
-    pc.alive();
+    pc.place_position(pos);
+    if(pc.player() == Player::red) {
+        red_army_.push_back(pc);
+    }
+    else if(pc.player() == Player::blue) {
+        blue_army_.push_back(pc);
+    }
 }
 
 // Complete the setup process and move into gameplay mode
@@ -217,4 +222,8 @@ void Model::deleteLoser(Piece pc) {
 
 void Model::play_move(Position pos) {
     // TODO
+}
+
+void Model::set_msg(std::string str) {
+    msg_ = str;
 }

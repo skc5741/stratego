@@ -40,9 +40,11 @@ private:
     int piece_rad = 21;
     int marker_rad = 8;
     int spacing = 5;
-    int txt_space = 100;
+    int txt_size = 25;
+    int board_y_offset = model_.board().height * (space_dim + spacing);
+    int btm_margin = 100;
 
-    ge211::Font font;
+    ge211::Font font {"sans.ttf", txt_size};
 
     // TODO: Add any private members you need, such as sprites
     ge211::Rectangle_sprite    const    // Dimensions, color
@@ -55,14 +57,16 @@ private:
             background_sprite {{ model_.board().dimensions().width
                                  * (space_dim + spacing) + spacing,
                                  model_.board().dimensions().height
-                                 * (space_dim + spacing) + spacing + txt_space},
+                                 * (space_dim + spacing) + spacing + btm_margin},
                                gray_color};
     ge211::Rectangle_sprite    const    // Dimensions, color
             lake_sprite_    {{ space_dim*2+spacing, space_dim*2+spacing }, blue_color};
-    ge211::Text_sprite      const
-            text_sprite_ { model_.msg() , font};
-};
 
-// There will be caption text that will provide the user with basic info about the gameplay
-// Update the caption text to be the given string
-void update_text(std::string);
+    ge211::Text_sprite msg_txt;
+    ge211::Text_sprite turn_txt;
+
+    // There will be caption text that will provide the user with basic info about the gameplay
+    // Update the caption text to be the given string
+    void update_text(ge211::Text_sprite&, std::string);
+    int line_to_pixel(int);
+};
