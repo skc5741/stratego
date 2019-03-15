@@ -160,22 +160,30 @@ void Model::advance_turn() {
     else
     {
         prev_turn_ = Player::neither;
-        if (prev_turn_ == Player::blue)
+        if (prev_turn_ == Player::blue) {
             turn_ = Player::red;
-        else if (prev_turn_ == Player::red)
-            turn_ = Player::red;
+            if (!is_playable(Player::red))
+                end_game();
+        }
+
+        else if (prev_turn_ == Player::red) {
+            turn_ = Player::blue;
+            if (!is_playable(Player::blue))
+                end_game();
+        }
     }
 }
 
 
 // Ends game, announces winner
 void Model::end_game() {
-    // TODO
+    set_msg("GAME OVER! WINNER IS " + to_string(winner_));
 }
 
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
 void Model::battle(Piece pc1, Piece pc2) {
+    set_msg("In battle!");
     deleteLoser(battleLoser(pc1, pc2));
 }
 
@@ -229,7 +237,17 @@ void Model::deleteLoser(Piece pc) {
 //
 
 void Model::play_move(Piece pc, Position pos) {
-    // TODO
+    Piece pc2 = get_pos(pos);
+    if (pc2.value() != -1) {
+        battle(pc, pc2);
+        if (pc.position().x != -1)
+            pc.change_position(pos);
+        advance_turn();
+    }
+    else {
+        pc.change_position(pos);
+        advance_turn();
+    }
 }
 
 void Model::set_msg(std::string str) {
