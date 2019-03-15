@@ -110,6 +110,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         }
     }
 
+    set.add_sprite(turn_txt, {10, line_to_pixel(0)});
     set.add_sprite(msg_txt, { 10, line_to_pixel(1)});
 }
 

@@ -97,6 +97,9 @@ public:
 
     void play_move(Piece, ge211::Position);
 
+    // Sets up piece
+    void setup_play(ge211::Position);
+
     // Place a piece on the game board and update val.
     void place_piece(Piece, ge211::Position);
 
@@ -137,7 +140,6 @@ private:
 //
 //  Setup helper functions
 //
-
 
 // Checks to see that the given position is valid for setup placement for a certain plyr
     bool setup_is_valid_space(ge211::Position, Player);

@@ -26,16 +26,16 @@ Piece Model::get_pos(Position pos) const
 bool Model::setup_is_valid_space(ge211::Position pos, Player plyr) {
     return
         (plyr == Player::red
-        && pos.x >= 6
-        && pos.x <= 9
-        && pos.y >= 0
-        && pos.y <= 9)
+        && pos.y >= 6
+        && pos.y <= 9
+        && pos.x >= 0
+        && pos.x <= 9)
         ||
         (plyr == Player::blue
-        && pos.x >= 0
-        && pos.x <= 3
         && pos.y >= 0
-        && pos.y <= 9);
+        && pos.y <= 3
+        && pos.x >= 0
+        && pos.x <= 9);
 }
 
 // Checks if the given input is in the range of valid plyr values.
@@ -233,4 +233,12 @@ void Model::play_move(Piece pc, Position pos) {
 
 void Model::set_msg(std::string str) {
     msg_ = str;
+}
+
+void Model::setup_play(ge211::Position grid_pos) {
+    if(get_pos(grid_pos) == empty_piece() && setup_is_valid_space(grid_pos, turn_)) {
+        int val = iterate_next_val();
+        Piece pc(turn(), val);
+        place_piece(pc, grid_pos);
+    }
 }
