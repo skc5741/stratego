@@ -232,7 +232,7 @@ void Model::play_move(Piece pc, Position pos) {
         advance_turn();
     }
     else {
-        pc.change_position();
+        pc.change_position(pos);
         advance_turn();
     }
 }
