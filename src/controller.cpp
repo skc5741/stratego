@@ -42,9 +42,11 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
             }
         }
         else {
-            model_.play_move(pc_to_move_, grid_pos);
-            model_.set_msg("Move played!");
-            is_piece_selected = false;
+            if (model_.is_valid_space(position)) {
+                model_.play_move(pc_to_move_, position);
+                model_.set_msg("Move played!");
+                is_piece_selected = false;
+            }
         }
     }
 }

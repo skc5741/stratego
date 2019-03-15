@@ -108,6 +108,9 @@ public:
 
     bool is_movable(ge211::Position);
 
+    // Determines whether or not the given position is a valid, movable pos on the board
+    bool is_valid_space(ge211::Position);
+
     friend struct Test_access;
 
 private:
@@ -156,9 +159,6 @@ private:
 
 // Updates next_moves_ based upon the selected piece.
     std::vector<ge211::Position> compute_next_moves(Piece);
-
-// Determines whether or not the given position is a valid, movable pos on the board
-    bool is_valid_space(ge211::Position);
 
 
 // Ends game, announces winner

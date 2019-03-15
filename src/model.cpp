@@ -165,7 +165,7 @@ void Model::advance_turn() {
 
 // Ends game, announces winner
 void Model::end_game() {
-    // TODO
+    set_msg("GAME OVER! WINNER IS " + to_string(winner_));
 }
 
 
@@ -224,7 +224,17 @@ void Model::deleteLoser(Piece pc) {
 //
 
 void Model::play_move(Piece pc, Position pos) {
-    // TODO
+    Piece pc2 = get_pos(pos);
+    if (pc2.value() != -1) {
+        battle(pc, pc2);
+        if (pc.position().x != -1)
+            pc.change_position(pos);
+        advance_turn();
+    }
+    else {
+        pc.change_position();
+        advance_turn();
+    }
 }
 
 void Model::set_msg(std::string str) {
