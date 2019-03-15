@@ -66,7 +66,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
             set.add_sprite(red_sprite_, circle_center, 5);
-            update_text(msg_txt, "Setup Piece: " + std::to_string(model_.get_next_val());
+            update_text(msg_txt, "Setup Piece: " + std::to_string(model_.get_next_val()));
         }
         else if (model_.turn() == Player::blue) {
             set.add_sprite(blue_sprite_, circle_center, 5);
