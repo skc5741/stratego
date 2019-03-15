@@ -29,6 +29,10 @@ public:
         return this->value() == p.value() && this->player() == p.player();
     }
 
+    bool operator!=(Piece p) {
+        return !(*this == p);
+    }
+
 private:
     // If the piece is alive / on the board
     bool live;
