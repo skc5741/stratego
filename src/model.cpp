@@ -56,12 +56,12 @@ void Model::finish_setup() {
 }
 
 int Model::iterate_next_val() {
-
-    int x = avail_vals[place_iter];
     place_iter++;
+    int x = avail_vals[place_iter];
 
     if(place_iter >= avail_vals.size() && turn_ == Player::red) {
         place_iter = 0;
+        msg_ = "Blue's Turn to Set Up!";
         advance_turn();
     }
     if(place_iter >= avail_vals.size() && turn_ == Player::blue) {
@@ -151,7 +151,7 @@ void Model::advance_turn() {
     }
     else
     {
-        prev_turn_ = Player::neither;
+        turn_ = other_player(prev_turn_);
         if (prev_turn_ == Player::blue) {
             turn_ = Player::red;
             if (!is_playable(Player::red)) {
@@ -167,6 +167,7 @@ void Model::advance_turn() {
                 end_game();
             }
         }
+        prev_turn_ = Player::neither;
     }
 }
 

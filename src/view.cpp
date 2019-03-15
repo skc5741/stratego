@@ -38,15 +38,15 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     // Initialize turn data
     if (model_.turn() == Player::red) {
         update_text(turn_txt, "Turn: Red");
-        set.add_sprite(turn_txt, { 10, line_to_pixel(0)});
+        set.add_sprite(turn_txt, { 10, line_to_pixel(0)}, 5);
     }
     else if (model_.turn() == Player::blue) {
         update_text(turn_txt, "Turn: Blue");
-        set.add_sprite(turn_txt, { 10, line_to_pixel(0)});
+        set.add_sprite(turn_txt, { 10, line_to_pixel(0)}, 5);
     }
     else {
         update_text(turn_txt, "Turn: Neither");
-        set.add_sprite(turn_txt, {10, line_to_pixel(0)});
+        set.add_sprite(turn_txt, {10, line_to_pixel(0)}, 5);
     }
 
     // For each board position
@@ -66,12 +66,14 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
             set.add_sprite(red_sprite_, circle_center, 5);
-            update_text(msg_txt, "Setup Piece: " + std::to_string(model_.get_next_val()));
+            update_text(msg_txt, "Red Setup Piece: " + std::to_string(model_.get_next_val()));
         }
         else if (model_.turn() == Player::blue) {
             set.add_sprite(blue_sprite_, circle_center, 5);
+            update_text(msg_txt, "Blue Setup Piece: " + std::to_string(model_.get_next_val()));
         }
     }
+    set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
 
     // For every piece in the blue army
     for(Piece pc : model_.blue_army()) {
@@ -110,9 +112,6 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             set.add_sprite(red_sprite_, pos, 3);
         }
     }
-
-    set.add_sprite(turn_txt, {10, line_to_pixel(0)});
-    set.add_sprite(msg_txt, { 10, line_to_pixel(1)});
 }
 
 Dimensions View::initial_window_dimensions() const
