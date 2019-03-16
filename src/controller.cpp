@@ -35,10 +35,11 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     else
     {
 
-        if (!is_piece_selected) {
+        if (!model_.is_piece_selected) {
             if (model_.is_movable(grid_pos)) {
                 pc_to_move_ = model_.get_pos(grid_pos);
-                is_piece_selected = true;
+                std::cout << "piece selected";
+                model_.is_piece_selected = true;
             }
         }
         else {
@@ -46,7 +47,7 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
                 model_.play_move(pc_to_move_, grid_pos);
                 std::cout << "move played...";
                 model_.set_msg("Move played!");
-                is_piece_selected = false;
+                model_.is_piece_selected = false;
             }
         }
     }

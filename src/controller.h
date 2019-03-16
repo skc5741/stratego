@@ -25,7 +25,6 @@ private:
     Model model_;
     View view_;
     Piece pc_to_move_;
-    bool is_piece_selected = false;
 
     ge211::Position mouse_posn;
 

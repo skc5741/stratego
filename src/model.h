@@ -68,6 +68,7 @@ public:
     std::string msg() const { return msg_; } // Returns msg
     int get_next_val() const;
     int get_curr_val() const { return avail_vals[place_iter-1]; }
+    bool is_piece_selected = false;
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
@@ -97,7 +98,7 @@ public:
 
     void set_msg(std::string str);
 
-    void play_move(Piece, ge211::Position);
+    void play_move(Piece&, ge211::Position);
 
     // Sets up piece
     void setup_play(ge211::Position);
