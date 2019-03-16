@@ -98,7 +98,7 @@ public:
 
     void set_msg(std::string str);
 
-    void play_move(Piece, ge211::Position);
+    void play_move(Piece&, ge211::Position);
 
     // Sets up piece
     void setup_play(ge211::Position);

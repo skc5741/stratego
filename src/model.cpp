@@ -81,7 +81,6 @@ bool Model::is_movable(ge211::Position pos) {
     if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11) {
         if (!compute_next_moves(pc).empty())
             return true;
-
     }
     return false;
 }
@@ -150,12 +149,20 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
 
 // Determines whether or not the given position is a valid, movable pos on the board
 bool Model::is_valid_space(ge211::Position pos) {
-    if (get_pos(pos).value() == -1)
-        return true;
-    else if (get_pos(pos).player() != turn())
-        return true;
-    else
-        return false;
+    if (pos.x < 10 && pos.x >= 0 &&
+        pos.y < 10 && pos.y >= 0 &&
+        pos != ge211::Position{2, 4} &&
+        pos != ge211::Position{3, 4} &&
+        pos != ge211::Position{2, 5} &&
+        pos != ge211::Position{3, 5} &&
+        pos != ge211::Position{6, 4} &&
+        pos != ge211::Position{7, 4} &&
+        pos != ge211::Position{6, 5} &&
+        pos != ge211::Position{7, 5}) {
+        if (get_pos(pos).value() == -1 || (get_pos(pos).player() != turn()))
+            return true;
+    }
+    return false;
 }
 
 // Updates turn_ to the next plyr, implements secrecy functionality along the way
@@ -237,7 +244,7 @@ void Model::deleteLoser(Piece pc) {
 //    allowed for the current plyr.
 //
 
-void Model::play_move(Piece pc, Position pos) {
+void Model::play_move(Piece& pc, Position pos) {
     Piece pc2 = get_pos(pos);
     if (pc2.value() != -1) {
         battle(pc, pc2);
