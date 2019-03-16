@@ -65,8 +65,8 @@ int Model::iterate_next_val() {
         advance_turn();
     }
     if(place_iter >= avail_vals.size() && turn_ == Player::blue) {
-        //advance_turn();
-        //finish_setup();
+        advance_turn();
+        finish_setup();
     }
     return x;
 }

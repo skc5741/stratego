@@ -22,8 +22,12 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //
     //  !!! Constant Setup !!!
     //
+    std::string next_val;
+    if (model_.is_setup()) {
+        next_val = val_to_str(model_.get_next_val());
+    }
 
-    std::string next_val = val_to_str(model_.get_next_val());
+
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
@@ -88,8 +92,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     }
     else {
         update_text(setup_txt, "Setup: False");
-        //update_text(msg_txt, "Ready to Begin Game"); causing it to crash
-        //update_text(value_txt, "RED: CLICK TO BEGIN"); also causing it to crash
+        update_text(msg_txt, "Ready to Begin Game");
     }
 
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
