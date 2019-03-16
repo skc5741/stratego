@@ -22,13 +22,13 @@ Piece::Piece(Player plyr, int val)
     this->val = val;
 }
 
-void Piece::place_position(ge211::Position pos) {
-    this->pos = pos;
+void Piece::place_position(ge211::Position pos1) {
+    pos = pos1;
     live = true;
 }
 
-void Piece::change_position(ge211::Position pos) {
-    this->pos = pos;
+void Piece::change_position(ge211::Position pos1) {
+    pos = pos1;
 }
 
 void Piece::kill() {

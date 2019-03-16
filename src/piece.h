@@ -12,9 +12,9 @@ public:
     explicit Piece();
     Piece(Player plyr, int val);
 
-    void place_position(ge211::Position pos);
+    void place_position(ge211::Position);
 
-    void change_position(ge211::Position pos);
+    void change_position(ge211::Position);
 
     void kill();
 

@@ -43,7 +43,6 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
         }
         else {
             if (model_.is_valid_space(grid_pos)) {
-                std::cout << "new space is valid, prepared to move it there";
                 model_.play_move(pc_to_move_, grid_pos);
                 std::cout << "move played...";
                 model_.set_msg("Move played!");
