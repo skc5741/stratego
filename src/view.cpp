@@ -24,7 +24,6 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //
 
     std::string next_val = val_to_str(model_.get_next_val());
-    std::string curr_val = val_to_str(model_.get_curr_val());
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
@@ -36,12 +35,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     circle_center = circle_center.up_by(piece_rad);
     ge211::Position txt_center = circle_center;
     txt_center = txt_center.right_by(15);
-<<<<<<< HEAD
     update_text(cursor_value_txt, next_val);
-=======
-    update_text(value_txt, curr_val);
-    set.add_sprite(value_txt, txt_center, 6);
->>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
 
     // Initialize lakes
     set.add_sprite(lake_sprite_, grid_to_pos(model_.lake_1().top_left()), 2);
@@ -82,35 +76,20 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
             set.add_sprite(red_sprite_, circle_center, 5);
-<<<<<<< HEAD
             update_text(msg_txt, "Red Setup Piece: " + next_val);
             set.add_sprite(cursor_value_txt, txt_center, 6);
-=======
-            update_text(msg_txt, "Red Setup Piece: " + curr_val); // should be current val
->>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
 
         }
         else if (model_.turn() == Player::blue) {
             set.add_sprite(blue_sprite_, circle_center, 5);
-<<<<<<< HEAD
             update_text(msg_txt, "Blue Setup Piece: " + next_val);
             set.add_sprite(cursor_value_txt, txt_center, 6);
-=======
-            update_text(msg_txt, "Blue Setup Piece: " + curr_val); // should be current val
-            update_text(value_txt, curr_val);
-            set.add_sprite(value_txt, txt_center, 6);
->>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
-        }
-        else
-        {
-            update_text(value_txt, "BLUE: CLICK TO SETUP");
         }
     }
     else {
         update_text(setup_txt, "Setup: False");
         //update_text(msg_txt, "Ready to Begin Game"); causing it to crash
         //update_text(value_txt, "RED: CLICK TO BEGIN"); also causing it to crash
-
     }
 
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
