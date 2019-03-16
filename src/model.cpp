@@ -150,9 +150,12 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
 
 // Determines whether or not the given position is a valid, movable pos on the board
 bool Model::is_valid_space(ge211::Position pos) {
-    if (get_pos(pos).position().x == -1)
+    if (get_pos(pos).value() == -1)
+        return true;
+    else if (get_pos(pos).player() != turn())
+        return true;
+    else
         return false;
-    return get_pos(pos).player() != turn();
 }
 
 // Updates turn_ to the next plyr, implements secrecy functionality along the way
