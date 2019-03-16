@@ -49,6 +49,10 @@ private:
     // TODO: Add any private members you need, such as sprites
     ge211::Rectangle_sprite    const    // Dimensions, color
             space_sprite_    {{ space_dim, space_dim }, green_color};
+    ge211::Rectangle_sprite    const    // Dimensions, color
+            winner_sprite_    {{ space_dim, space_dim }, white_color};
+    ge211::Rectangle_sprite    const    // Dimensions, color
+            loser_sprite_    {{ space_dim, space_dim }, black_color};
     ge211::Circle_sprite    const       // Radius, color
             red_sprite_    { piece_rad,  red_color};
     ge211::Circle_sprite    const       // Radius, color
@@ -64,9 +68,13 @@ private:
 
     ge211::Text_sprite msg_txt;
     ge211::Text_sprite turn_txt;
+    ge211::Text_sprite setup_txt;
+    ge211::Text_sprite value_txt;
 
     // There will be caption text that will provide the user with basic info about the gameplay
     // Update the caption text to be the given string
     void update_text(ge211::Text_sprite&, std::string);
     int line_to_pixel(int);
+    std::string val_to_str(int);
+    ge211::Position val_pos(std::string, ge211::Position);
 };

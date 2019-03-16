@@ -9,7 +9,9 @@ using namespace ge211;
 View::View(Model const& model)
         : model_(model)
         , msg_txt ("Stratego!", font)
-        , turn_txt ("Turn: ", font)
+        , turn_txt ("Turn: Init State", font)
+        , setup_txt ("Setup: Init State", font)
+        , value_txt ("0", font)
 // You may want to add sprite initialization here
 {}
 
@@ -21,6 +23,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //  !!! Constant Setup !!!
     //
 
+    std::string next_val = val_to_str(model_.get_next_val());
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
@@ -30,6 +33,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     ge211::Position circle_center = mouse_pos;
     circle_center = circle_center.left_by(piece_rad);
     circle_center = circle_center.up_by(piece_rad);
+    ge211::Position txt_center = circle_center;
+    txt_center = txt_center.right_by(15);
+    update_text(value_txt, next_val);
+    set.add_sprite(value_txt, txt_center, 6);
 
     // Initialize lakes
     set.add_sprite(lake_sprite_, grid_to_pos(model_.lake_1().top_left()), 2);
@@ -63,26 +70,38 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //
 
     if(model_.is_setup()) {
+
+        // Initialize setup_txt
+        update_text(setup_txt, "Setup: True");
+
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
             set.add_sprite(red_sprite_, circle_center, 5);
-            update_text(msg_txt, "Red Setup Piece: " + std::to_string(model_.get_next_val()));
+            update_text(msg_txt, "Red Setup Piece: " + next_val);
+
         }
         else if (model_.turn() == Player::blue) {
             set.add_sprite(blue_sprite_, circle_center, 5);
-            update_text(msg_txt, "Blue Setup Piece: " + std::to_string(model_.get_next_val()));
+            update_text(msg_txt, "Blue Setup Piece: " + next_val);
+            update_text(value_txt, next_val);
+            set.add_sprite(value_txt, txt_center, 6);
         }
     }
+    else
+        update_text(setup_txt, "Setup: False");
+
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
+    set.add_sprite(setup_txt, {10, line_to_pixel(2)}, 5);
 
     // For every piece in the blue army
     for(Piece pc : model_.blue_army()) {
 
         // If game is over, do something cool
         if(model_.is_game_over()) {
-            if(pc.player() != model_.winner()) {
-                //set.add_sprite(blue_sprite_, grid_to_pos(pc.position()), 2);
-            }
+            if(pc.player() == model_.winner())
+                set.add_sprite(winner_sprite_, grid_to_pos(pc.position()), 2);
+            else
+                set.add_sprite(loser_sprite_, grid_to_pos(pc.position()), 2);
         }
 
         // Initialize board pieces
@@ -92,6 +111,15 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             pos.y += (space_dim / 2 - piece_rad);
             set.add_sprite(blue_sprite_, pos, 3);
         }
+
+        // Initialize Value Labels
+        if(model_.turn() == Player::blue) {
+            txt_center = grid_to_pos(pc.position());
+            txt_center = txt_center.right_by(15);
+
+            update_text(value_txt, val_to_str(pc.value()));
+            set.add_sprite(value_txt, txt_center, 4);
+        }
     }
 
     // For every piece in the red army
@@ -99,9 +127,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
         // If game is over, do something cool
         if(model_.is_game_over()) {
-            if(pc.player() != model_.winner()) {
-                //set.add_sprite(red_sprite_, grid_to_pos(pc.position()), 2);
-            }
+            if(pc.player() == model_.winner())
+                set.add_sprite(winner_sprite_, grid_to_pos(pc.position()), 2);
+            else
+                set.add_sprite(loser_sprite_, grid_to_pos(pc.position()), 2);
         }
 
         // Initialize board pieces
@@ -110,6 +139,15 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             pos.x += (space_dim / 2 - piece_rad);
             pos.y += (space_dim / 2 - piece_rad);
             set.add_sprite(red_sprite_, pos, 3);
+        }
+
+        // Initialize Value Labels
+        if(model_.turn() == Player::red) {
+            txt_center = grid_to_pos(pc.position());
+            txt_center = txt_center.right_by(15);
+
+            update_text(value_txt, val_to_str(pc.value()));
+            set.add_sprite(value_txt, txt_center);
         }
     }
 }
@@ -147,4 +185,21 @@ void View::update_text(ge211::Text_sprite &spr, std::string str) {
 
 int View::line_to_pixel(int x) {
     return board_y_offset + txt_size * x;
+}
+
+std::string View::val_to_str(int val) {
+    switch (val) {
+        case 0: return "F";
+        case 1: return "S";
+        case 2: return "2";
+        case 3: return "3";
+        case 4: return "4";
+        case 5: return "5";
+        case 6: return "6";
+        case 7: return "7";
+        case 8: return "8";
+        case 9: return "9";
+        case 10: return "10";
+        case 11: return "B";
+    }
 }

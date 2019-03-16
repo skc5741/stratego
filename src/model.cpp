@@ -82,7 +82,7 @@ bool Model::is_movable(ge211::Position pos) {
         if (!compute_next_moves(pc).empty())
             return true;
     }
-        return false;
+    return false;
 }
 
 // Checks to see if the given plyr has any moves to make
@@ -151,10 +151,7 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
 bool Model::is_valid_space(ge211::Position pos) {
     if (get_pos(pos).position().x == -1)
         return false;
-    else if (get_pos(pos).player() != turn())
-        return true;
-    else
-        return false;
+    return get_pos(pos).player() != turn();
 }
 
 // Updates turn_ to the next plyr, implements secrecy functionality along the way
@@ -166,7 +163,7 @@ void Model::advance_turn() {
     else
     {
         turn_ = other_player(prev_turn_);
-        if(!is_playable(turn_)) {
+        if(!is_playable(turn_) && !is_setup()) {
             winner_ = other_player(turn_);
             end_game();
         }
