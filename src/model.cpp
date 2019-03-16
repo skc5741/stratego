@@ -88,6 +88,7 @@ bool Model::is_movable(ge211::Position pos) {
     if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11) {
         if (!compute_next_moves(pc).empty())
             return true;
+
     }
     return false;
 }
