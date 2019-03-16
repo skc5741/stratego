@@ -24,6 +24,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //
 
     std::string next_val = val_to_str(model_.get_next_val());
+    std::string curr_val = val_to_str(model_.get_curr_val());
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
@@ -35,7 +36,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     circle_center = circle_center.up_by(piece_rad);
     ge211::Position txt_center = circle_center;
     txt_center = txt_center.right_by(15);
-    update_text(value_txt, next_val);
+    update_text(value_txt, curr_val);
     set.add_sprite(value_txt, txt_center, 6);
 
     // Initialize lakes
@@ -77,13 +78,13 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
             set.add_sprite(red_sprite_, circle_center, 5);
-            update_text(msg_txt, "Red Setup Piece: " + next_val);
+            update_text(msg_txt, "Red Setup Piece: " + curr_val); // should be current val
 
         }
         else if (model_.turn() == Player::blue) {
             set.add_sprite(blue_sprite_, circle_center, 5);
-            update_text(msg_txt, "Blue Setup Piece: " + next_val);
-            update_text(value_txt, next_val);
+            update_text(msg_txt, "Blue Setup Piece: " + curr_val); // should be current val
+            update_text(value_txt, curr_val);
             set.add_sprite(value_txt, txt_center, 6);
         }
     }
