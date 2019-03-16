@@ -87,9 +87,17 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
             update_text(value_txt, curr_val);
             set.add_sprite(value_txt, txt_center, 6);
         }
+        else
+        {
+            update_text(value_txt, "BLUE: CLICK TO SETUP");
+        }
     }
-    else
+    else {
         update_text(setup_txt, "Setup: False");
+        //update_text(msg_txt, "Ready to Begin Game"); causing it to crash
+        //update_text(value_txt, "RED: CLICK TO BEGIN"); also causing it to crash
+
+    }
 
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
     set.add_sprite(setup_txt, {10, line_to_pixel(2)}, 5);
