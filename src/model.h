@@ -66,7 +66,7 @@ public:
     std::vector<Piece> red_army() const{ return red_army_; }  // Returns red_army_
     Piece empty_piece() const { return empty_piece_; } // Returns empty_piece
     std::string msg() const { return msg_; } // Returns msg
-    int get_next_val() const { return avail_vals[place_iter]; }
+    int get_next_val() const;
     int get_curr_val() const { return avail_vals[place_iter-1]; }
 
 // Returns the current turn, or `Player::neither` if the game is over.

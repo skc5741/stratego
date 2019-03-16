@@ -55,6 +55,13 @@ void Model::finish_setup() {
     setup = false;
 }
 
+int Model::get_next_val() const {
+    if(is_setup())
+        return avail_vals[place_iter];
+
+    return 0;
+}
+
 int Model::iterate_next_val() {
     place_iter++;
     int x = avail_vals[place_iter];
