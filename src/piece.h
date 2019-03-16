@@ -1,7 +1,12 @@
 //
 // Created by Sam Crites on 2019-03-10.
 //
+<<<<<<< HEAD
+
 #include "../.eecs211/lib/ge211/include/ge211.h"
+=======
+#include "ge211.h"
+>>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
 #include "player.h"
 
 class Piece {

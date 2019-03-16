@@ -11,7 +11,7 @@ View::View(Model const& model)
         , msg_txt ("Stratego!", font)
         , turn_txt ("Turn: Init State", font)
         , setup_txt ("Setup: Init State", font)
-        , value_txt ("0", font)
+        , cursor_value_txt ("F", font)
 // You may want to add sprite initialization here
 {}
 
@@ -24,6 +24,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //
 
     std::string next_val = val_to_str(model_.get_next_val());
+    std::string curr_val = val_to_str(model_.get_curr_val());
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
@@ -35,8 +36,12 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     circle_center = circle_center.up_by(piece_rad);
     ge211::Position txt_center = circle_center;
     txt_center = txt_center.right_by(15);
-    update_text(value_txt, next_val);
+<<<<<<< HEAD
+    update_text(cursor_value_txt, next_val);
+=======
+    update_text(value_txt, curr_val);
     set.add_sprite(value_txt, txt_center, 6);
+>>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
 
     // Initialize lakes
     set.add_sprite(lake_sprite_, grid_to_pos(model_.lake_1().top_left()), 2);
@@ -77,18 +82,36 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
             set.add_sprite(red_sprite_, circle_center, 5);
+<<<<<<< HEAD
             update_text(msg_txt, "Red Setup Piece: " + next_val);
+            set.add_sprite(cursor_value_txt, txt_center, 6);
+=======
+            update_text(msg_txt, "Red Setup Piece: " + curr_val); // should be current val
+>>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
 
         }
         else if (model_.turn() == Player::blue) {
             set.add_sprite(blue_sprite_, circle_center, 5);
+<<<<<<< HEAD
             update_text(msg_txt, "Blue Setup Piece: " + next_val);
-            update_text(value_txt, next_val);
+            set.add_sprite(cursor_value_txt, txt_center, 6);
+=======
+            update_text(msg_txt, "Blue Setup Piece: " + curr_val); // should be current val
+            update_text(value_txt, curr_val);
             set.add_sprite(value_txt, txt_center, 6);
+>>>>>>> a09f500be3e37cbb67e51f2b9f0a3c9e86a7735c
+        }
+        else
+        {
+            update_text(value_txt, "BLUE: CLICK TO SETUP");
         }
     }
-    else
+    else {
         update_text(setup_txt, "Setup: False");
+        //update_text(msg_txt, "Ready to Begin Game"); causing it to crash
+        //update_text(value_txt, "RED: CLICK TO BEGIN"); also causing it to crash
+
+    }
 
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
     set.add_sprite(setup_txt, {10, line_to_pixel(2)}, 5);
@@ -115,10 +138,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize Value Labels
         if(model_.turn() == Player::blue) {
             txt_center = grid_to_pos(pc.position());
-            txt_center = txt_center.right_by(15);
+            txt_center = txt_center.right_by(17);
+            txt_center = txt_center.down_by(3);
 
-            update_text(value_txt, val_to_str(pc.value()));
-            set.add_sprite(value_txt, txt_center, 4);
+            set.add_sprite(right_sprite(pc.value()), txt_center, 4);
         }
     }
 
@@ -144,10 +167,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         // Initialize Value Labels
         if(model_.turn() == Player::red) {
             txt_center = grid_to_pos(pc.position());
-            txt_center = txt_center.right_by(15);
+            txt_center = txt_center.right_by(17);
+            txt_center = txt_center.down_by(3);
 
-            update_text(value_txt, val_to_str(pc.value()));
-            set.add_sprite(value_txt, txt_center);
+            set.add_sprite(right_sprite(pc.value()), txt_center, 4);
         }
     }
 }
@@ -179,7 +202,7 @@ ge211::Position View::grid_to_pos(ge211::Position grid_pos) const {
     return p;
 }
 
-void View::update_text(ge211::Text_sprite &spr, std::string str) {
+void View::update_text(ge211::Text_sprite& spr, std::string str) {
     spr.reconfigure(ge211::Text_sprite::Builder(font).message(str));
 }
 
@@ -201,5 +224,22 @@ std::string View::val_to_str(int val) {
         case 9: return "9";
         case 10: return "10";
         case 11: return "B";
+    }
+}
+
+ge211::Text_sprite &View::right_sprite(int val) {
+    switch (val) {
+        case 0: return flag_sprite;
+        case 1: return spy_sprite;
+        case 2: return scout_sprite;
+        case 3: return miner_sprite;
+        case 4: return sergeant_sprite;
+        case 5: return lieutenant_sprite;
+        case 6: return captain_sprite;
+        case 7: return major_sprite;
+        case 8: return colonel_sprite;
+        case 9: return general_sprite;
+        case 10: return marshall_sprite;
+        case 11: return bomb_sprite;
     }
 }

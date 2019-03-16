@@ -69,7 +69,20 @@ private:
     ge211::Text_sprite msg_txt;
     ge211::Text_sprite turn_txt;
     ge211::Text_sprite setup_txt;
-    ge211::Text_sprite value_txt;
+    ge211::Text_sprite cursor_value_txt;
+
+    ge211::Text_sprite flag_sprite {"F", font};
+    ge211::Text_sprite spy_sprite {"S", font};
+    ge211::Text_sprite scout_sprite {"2", font};
+    ge211::Text_sprite miner_sprite {"3", font};
+    ge211::Text_sprite sergeant_sprite {"4", font};
+    ge211::Text_sprite lieutenant_sprite {"5", font};
+    ge211::Text_sprite captain_sprite {"6", font};
+    ge211::Text_sprite major_sprite {"7", font};
+    ge211::Text_sprite colonel_sprite {"8", font};
+    ge211::Text_sprite general_sprite {"9", font};
+    ge211::Text_sprite marshall_sprite {"10", font};
+    ge211::Text_sprite bomb_sprite {"B", font};
 
     // There will be caption text that will provide the user with basic info about the gameplay
     // Update the caption text to be the given string
@@ -77,4 +90,5 @@ private:
     int line_to_pixel(int);
     std::string val_to_str(int);
     ge211::Position val_pos(std::string, ge211::Position);
+    ge211::Text_sprite &right_sprite(int);
 };
