@@ -232,16 +232,16 @@ Piece* Model::battleLoser(Piece* pc1, Piece* pc2) {
     else if (pc2->value() == 11)
     {
         if (pc1->value() == 3)
-            return pc1;
-        else
             return pc2;
+        else
+            return pc1;
     }
     else if (pc1->value() == 1)
     {
         if (pc2->value() == 10)
-            return pc1;
-        else
             return pc2;
+        else
+            return pc1;
     }
     else
     {
