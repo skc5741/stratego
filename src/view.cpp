@@ -111,7 +111,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         }
 
         // Initialize board pieces
-        if(pc != model_.empty_piece()) {
+        if(pc.alive()) {
             ge211::Position pos = grid_to_pos(pc.position());
             pos.x += (space_dim / 2 - piece_rad);
             pos.y += (space_dim / 2 - piece_rad);

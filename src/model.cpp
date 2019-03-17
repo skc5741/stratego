@@ -256,10 +256,11 @@ void Model::play_move(Piece* pc, Position pos) {
     if (pc2.value() != -1) {
         battle(&pc, &pc2);
         if (pc.alive())
-            pc.change_position(pos);
+            place_piece(pc, pos);
     }
     else {
-        pc.change_position(pos);
+        place_piece(pc, pos);
+        pc.kill();
         std::cout << "pos changed";
     }
     advance_turn();
