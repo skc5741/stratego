@@ -9,17 +9,21 @@ Model::Model()
     lake_2_ = Rectangle::from_top_left({6,4},{2,2});
 }
 
+<<<<<<< HEAD
 Piece& Model::get_pos(Position pos) const
+=======
+Piece* Model::get_pos(Position pos)
+>>>>>>> f026f2bf5a15fc50879a8d739eae789ff2946fe6
 {
-    for(Piece pc : blue_army_) {
+    for(Piece& pc : blue_army_) {
         if(pc.position() == pos)
-            return pc;
+            return &pc;
     }
-    for(Piece pc : red_army_) {
+    for(Piece& pc : red_army_) {
         if(pc.position() == pos)
-            return pc;
+            return &pc;
     }
-    return empty_piece_;
+    return &empty_piece_;
 }
 
 // Checks to see that the given position is valid for setup placement for a certain plyr
@@ -48,6 +52,10 @@ void Model::place_piece(Piece pc, ge211::Position pos) {
     else if(pc.player() == Player::blue) {
         blue_army_.push_back(pc);
     }
+}
+
+void Model::move_piece(Piece& pc, ge211::Position pos) {
+    pc.change_position(pos);
 }
 
 // Complete the setup process and move into gameplay mode
@@ -84,9 +92,9 @@ int Model::iterate_next_val() {
 
 // Determines whether or not the given piece is movable in gameplay
 bool Model::is_movable(ge211::Position pos) {
-    Piece pc = get_pos(pos);
-    if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11) {
-        if (!compute_next_moves(pc).empty())
+    Piece* pc = get_pos(pos);
+    if (pc->value() != -1 && pc->player() == turn() && pc->value() != 0 && pc->value() != 11) {
+        if (!compute_next_moves(*pc).empty())
             return true;
     }
     return false;
@@ -166,7 +174,7 @@ bool Model::is_valid_space(ge211::Position pos) {
         pos != ge211::Position{7, 4} &&
         pos != ge211::Position{6, 5} &&
         pos != ge211::Position{7, 5}) {
-        if (get_pos(pos).value() == -1 || (get_pos(pos).player() != turn()))
+        if (get_pos(pos)->value() == -1 || (get_pos(pos)->player() != turn()))
             return true;
     }
     return false;
@@ -251,6 +259,7 @@ void Model::deleteLoser(Piece pc) {
 //    allowed for the current plyr.
 //
 
+<<<<<<< HEAD
 void Model::play_move(Piece pc, Position pos) {
     Piece pc2 = get_pos(pos);
     if (pc2 != empty_piece_) {
@@ -261,6 +270,17 @@ void Model::play_move(Piece pc, Position pos) {
     }
     else {
         pc.place_position(pos);
+=======
+void Model::play_move(Piece& pc, Position pos) {
+    Piece* pc2 = get_pos(pos);
+    if (pc2->value() != -1) {
+        battle(pc, *pc2);
+        if (pc.alive())
+            move_piece(pc, pos);
+    }
+    else {
+        move_piece(pc, pos);
+>>>>>>> f026f2bf5a15fc50879a8d739eae789ff2946fe6
         pc.kill();
         std::cout << "pos changed";
     }
@@ -272,7 +292,7 @@ void Model::set_msg(std::string str) {
 }
 
 void Model::setup_play(ge211::Position grid_pos) {
-    if(get_pos(grid_pos) == empty_piece() && setup_is_valid_space(grid_pos, turn_)) {
+    if(*get_pos(grid_pos) == empty_piece() && setup_is_valid_space(grid_pos, turn_)) {
         Piece pc(turn(), get_next_val());
         place_piece(pc, grid_pos);
         iterate_next_val();

@@ -85,7 +85,11 @@ public:
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if the position is out of
 //    bounds.
+<<<<<<< HEAD
     Piece& get_pos(ge211::Position) const;
+=======
+    Piece* get_pos(ge211::Position);
+>>>>>>> f026f2bf5a15fc50879a8d739eae789ff2946fe6
 
 // Attempts to play a move at the given position for the current
 // plyr. If successful, advances the state of the game to the
@@ -105,6 +109,8 @@ public:
 
     // Place a piece on the game board and update val.
     void place_piece(Piece, ge211::Position);
+
+    void move_piece(Piece&, ge211::Position);
 
     // Moves on to the next value to be placed
     int iterate_next_val();
