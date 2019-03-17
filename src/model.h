@@ -98,7 +98,7 @@ public:
 
     void set_msg(std::string str);
 
-    void play_move(Piece&, ge211::Position);
+    void play_move(Piece*, ge211::Position);
 
     // Sets up piece
     void setup_play(ge211::Position);
@@ -169,16 +169,16 @@ private:
     void end_game();
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
-    void battle(Piece, Piece);
+    void battle(Piece*, Piece*);
 
 //
 //  Battle helper functions
 //
 
 // Determines the loser of the battle between the two given pieces
-    Piece battleLoser(Piece, Piece);
+    Piece* battleLoser(Piece*, Piece*);
 
 // Removes the loser from gameplay
-    void deleteLoser(Piece);
+    void deleteLoser(Piece*);
 
 };

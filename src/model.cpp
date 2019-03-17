@@ -52,6 +52,7 @@ void Model::place_piece(Piece pc, ge211::Position pos) {
 
 void Model::move_piece(Piece& pc, ge211::Position pos) {
     pc.change_position(pos);
+    std::cout << pc.position().x << " " << pc.position().y;
 }
 
 // Complete the setup process and move into gameplay mode
@@ -194,7 +195,7 @@ void Model::end_game() {
 
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
-void Model::battle(Piece pc1, Piece pc2) {
+void Model::battle(Piece* pc1, Piece* pc2) {
     deleteLoser(battleLoser(pc1, pc2));
 }
 
@@ -203,29 +204,29 @@ void Model::battle(Piece pc1, Piece pc2) {
 //
 
 // Determines the loser of the battle between the two given pieces
-Piece Model::battleLoser(Piece pc1, Piece pc2) {
-    if (pc2.value() == 0) {
-        winner_ = pc1.player();
+Piece* Model::battleLoser(Piece* pc1, Piece* pc2) {
+    if (pc2->value() == 0) {
+        winner_ = pc1->player();
         end_game();
     }
 
-    else if (pc2.value() == 11)
+    else if (pc2->value() == 11)
     {
-        if (pc1.value() == 3)
+        if (pc1->value() == 3)
             return pc1;
         else
             return pc2;
     }
-    else if (pc1.value() == 1)
+    else if (pc1->value() == 1)
     {
-        if (pc2.value() == 10)
+        if (pc2->value() == 10)
             return pc1;
         else
             return pc2;
     }
     else
     {
-        if (pc1.value() >= pc2.value())
+        if (pc1->value() >= pc2->value())
             return pc2;
         else
             return pc1;
@@ -233,9 +234,9 @@ Piece Model::battleLoser(Piece pc1, Piece pc2) {
 }
 
 // Removes the loser from gameplay
-void Model::deleteLoser(Piece pc) {
-    set_msg("Battle ensues! Loser is : " + to_string(pc.player()));
-    pc.kill();
+void Model::deleteLoser(Piece* pc) {
+    set_msg("Battle ensues! Loser is : " + to_string(pc->player()));
+    pc->kill();
 }
 
 // Attempts to play a move at the given position for the current
@@ -248,16 +249,15 @@ void Model::deleteLoser(Piece pc) {
 //    allowed for the current plyr.
 //
 
-void Model::play_move(Piece& pc, Position pos) {
+void Model::play_move(Piece* pc, Position pos) {
     Piece* pc2 = get_pos(pos);
     if (pc2->value() != -1) {
-        battle(pc, *pc2);
-        if (pc.alive())
-            move_piece(pc, pos);
+        battle(pc, pc2);
+        if (pc->alive())
+            move_piece(*pc, pos);
     }
     else {
-        move_piece(pc, pos);
-        pc.kill();
+        move_piece(*pc, pos);
         std::cout << "pos changed";
     }
     advance_turn();
