@@ -210,7 +210,9 @@ void Model::battle(Piece* pc1, Piece* pc2) {
 Piece* Model::battleLoser(Piece* pc1, Piece* pc2) {
     if (pc2->value() == 0) {
         winner_ = pc1->player();
+        pc2->kill();
         end_game();
+        return &empty_piece_;
     }
 
     else if (pc2->value() == 11)
