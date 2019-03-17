@@ -84,7 +84,7 @@ public:
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if the position is out of
 //    bounds.
-    Piece get_pos(ge211::Position) const;
+    Piece& get_pos(ge211::Position);
 
 // Attempts to play a move at the given position for the current
 // plyr. If successful, advances the state of the game to the

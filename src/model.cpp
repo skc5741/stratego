@@ -9,7 +9,7 @@ Model::Model()
     lake_2_ = Rectangle::from_top_left({6,4},{2,2});
 }
 
-Piece Model::get_pos(Position pos) const
+Piece& Model::get_pos(Position pos)
 {
     for(Piece pc : blue_army_) {
         if(pc.position() == pos)
@@ -266,6 +266,7 @@ void Model::setup_play(ge211::Position grid_pos) {
     if(get_pos(grid_pos) == empty_piece() && setup_is_valid_space(grid_pos, turn_)) {
         Piece pc(turn(), get_next_val());
         place_piece(pc, grid_pos);
+        std::cout << "VALUE OF PIECE PLACED in setup play: " << pc.value();
         iterate_next_val();
     }
 }
