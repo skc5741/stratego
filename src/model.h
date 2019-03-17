@@ -69,8 +69,10 @@ public:
     int get_next_val() const;
     int get_curr_val() const { return avail_vals[place_iter-1]; }
     bool is_piece_selected = false;
-    int pc_to_move_x;
-    int pc_to_move_y;
+    //int pc_to_move_x;
+    //int pc_to_move_y;
+
+    ge211::Position pc_to_move;
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const

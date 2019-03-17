@@ -49,10 +49,10 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
     // Initialize Highlight Turn
     if(model_.is_piece_selected) {
-        set.add_sprite(yellow_sprite_, grid_to_pos({model_.pc_to_move_x, model_.pc_to_move_y}), 2);
+        set.add_sprite(yellow_sprite_, grid_to_pos(model_.pc_to_move), 2);
 
         // Initialize Highlight Move Options
-        /*Piece* pc = model_.get_pos({model_.pc_to_move_x, model_.pc_to_move_y});
+        /*Piece* pc = model_.get_pos(model_.pc_to_move);
         for(model_.compute_next_moves(*pc)) {
 
         } change */
@@ -116,7 +116,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     set.add_sprite(setup_txt, {10, line_to_pixel(2)}, 5);
 
     if(model_.is_piece_selected) {
-        ge211::Position pos = grid_to_pos({model_.pc_to_move_x, model_.pc_to_move_y});
+        ge211::Position pos = grid_to_pos(model_.pc_to_move);
     }
 
     // For every piece in the blue army

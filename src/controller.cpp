@@ -37,20 +37,16 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
 
         if (!model_.is_piece_selected || model_.get_pos(grid_pos)->player() == model_.turn()) {
             if (model_.is_movable(grid_pos)) {
-                model_.pc_to_move_x = model_.get_pos(grid_pos)->position().x;
-                model_.pc_to_move_y = model_.get_pos(grid_pos)->position().y;
+                model_.pc_to_move = {model_.get_pos(grid_pos)->position().x, model_.get_pos(grid_pos)->position().y};
                 std::cout << "piece selected";
                 model_.is_piece_selected = true;
             }
         }
         else {
 
-            if (model_.can_be_moved_here(grid_pos, {model_.pc_to_move_x, model_.pc_to_move_y})) {
-                std::cout << "can be moved";
-                Piece* pc_to_move_ = model_.get_pos({model_.pc_to_move_x, model_.pc_to_move_y});
+            if (model_.can_be_moved_here(grid_pos, model_.pc_to_move)) {
+                Piece* pc_to_move_ = model_.get_pos(model_.pc_to_move);
                 model_.play_move(pc_to_move_, grid_pos);
-                //std::cout << pc_to_move_.position().x << pc_to_move_.position().y;
-                std::cout << "move played...               ";
                 model_.set_msg("Move played!");
                 model_.is_piece_selected = false;
                 Piece* is_here = model_.get_pos({4, 5});
