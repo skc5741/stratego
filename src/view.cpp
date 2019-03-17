@@ -109,6 +109,18 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     }
     else {
         update_text(setup_txt, "Setup: False");
+        if(model_.is_game_over()) {
+            if(model_.winner() == Player::red)
+                update_text(msg_txt, "Red Wins!");
+            else if(model_.winner() == Player::blue)
+                update_text(msg_txt, "Blue Wins!");
+        }
+        else if(model_.turn() == Player::red)
+            update_text(msg_txt, "Red's Turn!");
+        else if(model_.turn() == Player::blue)
+            update_text(msg_txt, "Blue's Turn!");
+        else
+            update_text(msg_txt, "Hit any key to reveal next player's values!");
     }
 
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
