@@ -9,6 +9,7 @@ Model::Model()
     lake_2_ = Rectangle::from_top_left({6,4},{2,2});
 }
 
+
 Piece* Model::get_pos(Position pos)
 {
     for(Piece& pc : blue_army_) {
@@ -58,6 +59,13 @@ void Model::move_piece(Piece& pc, ge211::Position pos) {
 // Complete the setup process and move into gameplay mode
 void Model::finish_setup() {
     setup = false;
+}
+
+int Model::get_next_val() const {
+    if(is_setup())
+        return avail_vals[place_iter];
+
+    return 0;
 }
 
 int Model::iterate_next_val() {
@@ -258,6 +266,7 @@ void Model::play_move(Piece* pc, Position pos) {
     }
     else {
         move_piece(*pc, pos);
+
         std::cout << "pos changed";
     }
     advance_turn();
