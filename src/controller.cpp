@@ -37,22 +37,22 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
 
         if (!model_.is_piece_selected) {
             if (model_.is_movable(grid_pos)) {
-                pc_to_move_x = model_.get_pos(grid_pos).position().x;
-                pc_to_move_y = model_.get_pos(grid_pos).position().y;
+                pc_to_move_x = model_.get_pos(grid_pos)->position().x;
+                pc_to_move_y = model_.get_pos(grid_pos)->position().y;
                 std::cout << "piece selected";
                 model_.is_piece_selected = true;
             }
         }
         else {
             if (model_.is_valid_space(grid_pos)) {
-                Piece pc_to_move_ = model_.get_pos({pc_to_move_x, pc_to_move_y});
-                model_.play_move(pc_to_move_, grid_pos);
-                std::cout << pc_to_move_.position().x << pc_to_move_.position().y;
+                Piece* pc_to_move_ = model_.get_pos({pc_to_move_x, pc_to_move_y});
+                model_.play_move(*pc_to_move_, grid_pos);
+                //std::cout << pc_to_move_.position().x << pc_to_move_.position().y;
                 std::cout << "move played...               ";
                 model_.set_msg("Move played!");
                 model_.is_piece_selected = false;
-                Piece is_here = model_.get_pos({4, 5});
-                std::cout << is_here.value();
+                Piece* is_here = model_.get_pos({4, 5});
+                std::cout << is_here->value();
             }
         }
     }
