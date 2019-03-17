@@ -199,6 +199,8 @@ void Model::end_game() {
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
 void Model::battle(Piece* pc1, Piece* pc2) {
+    pc1->discovered();
+    pc2->discovered();
     deleteLoser(battleLoser(pc1, pc2));
 }
 
@@ -263,8 +265,6 @@ void Model::play_move(Piece* pc, Position pos) {
     }
     else {
         move_piece(*pc, pos);
-
-        std::cout << "pos changed";
     }
     advance_turn();
 }

@@ -150,7 +150,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         }
 
         // Initialize Value Labels
-        if(model_.turn() == Player::blue) {
+        if(model_.turn() == Player::blue || pc.known() || model_.is_game_over()) {
             Position txt_center = grid_to_pos(pc.position());
             txt_center = txt_center.right_by(17);
             txt_center = txt_center.down_by(3);
@@ -179,7 +179,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         }
 
         // Initialize Value Labels
-        if(model_.turn() == Player::red) {
+        if(model_.turn() == Player::red  || pc.known()  || model_.is_game_over()) {
             Position txt_center = grid_to_pos(pc.position());
             txt_center = txt_center.right_by(17);
             txt_center = txt_center.down_by(3);

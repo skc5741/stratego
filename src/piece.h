@@ -16,6 +16,9 @@ public:
 
     void change_position(ge211::Position);
 
+    void discovered() { known_ = true; }
+    bool known() const { return known_; }
+
     void kill();
 
     ge211::Position position() const { return pos; }
@@ -46,4 +49,7 @@ private:
 
     // Determines which team the piece is on, which army it belongs to
     Player plyr;
+
+    // If piece is known by opponent
+    bool known_ = false;
 };
