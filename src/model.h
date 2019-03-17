@@ -69,6 +69,7 @@ public:
     int get_next_val() const;
     int get_curr_val() const { return avail_vals[place_iter-1]; }
     bool is_piece_selected = false;
+    Piece* pc_to_move_;
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
@@ -84,7 +85,7 @@ public:
 // ERRORS:
 //  - Throws `ge211::Client_logic_error` if the position is out of
 //    bounds.
-    Piece& get_pos(ge211::Position);
+    Piece* get_pos(ge211::Position) const;
 
 // Attempts to play a move at the given position for the current
 // plyr. If successful, advances the state of the game to the
@@ -94,11 +95,10 @@ public:
 //  - Throws `ge211::Client_logic_error` if the game is over.
 //  - Throws `ge211::Client_logic_error` if the move is not currently
 //    allowed for the current plyr.
-//
 
     void set_msg(std::string str);
 
-    void play_move(Piece&, ge211::Position);
+    void play_move(Piece*, ge211::Position);
 
     // Sets up piece
     void setup_play(ge211::Position);
@@ -160,23 +160,23 @@ private:
     bool is_playable(Player);
 
 // Updates next_moves_ based upon the selected piece.
-    std::vector<ge211::Position> compute_next_moves(Piece);
+    std::vector<ge211::Position> compute_next_moves(Piece*);
 
 
 // Ends game, announces winner
     void end_game();
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
-    void battle(Piece, Piece);
+    void battle(Piece*, Piece*);
 
 //
 //  Battle helper functions
 //
 
 // Determines the loser of the battle between the two given pieces
-    Piece battleLoser(Piece, Piece);
+    Piece* battleLoser(Piece*, Piece*);
 
 // Removes the loser from gameplay
-    void deleteLoser(Piece);
+    void deleteLoser(Piece*);
 
 };

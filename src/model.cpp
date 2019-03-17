@@ -9,17 +9,17 @@ Model::Model()
     lake_2_ = Rectangle::from_top_left({6,4},{2,2});
 }
 
-Piece& Model::get_pos(Position pos)
+Piece* Model::get_pos(Position pos) const
 {
     for(Piece pc : blue_army_) {
         if(pc.position() == pos)
-            return pc;
+            return &pc;
     }
     for(Piece pc : red_army_) {
         if(pc.position() == pos)
-            return pc;
+            return &pc;
     }
-    return empty_piece_;
+    return nullptr;
 }
 
 // Checks to see that the given position is valid for setup placement for a certain plyr
@@ -84,8 +84,8 @@ int Model::iterate_next_val() {
 
 // Determines whether or not the given piece is movable in gameplay
 bool Model::is_movable(ge211::Position pos) {
-    Piece pc = get_pos(pos);
-    if (pc.value() != -1 && pc.player() == turn() && pc.value() != 0 && pc.value() != 11) {
+    Piece* pc = get_pos(pos);
+    if (pc->value() != -1 && pc->player() == turn() && pc->value() != 0 && pc->value() != 11) {
         if (!compute_next_moves(pc).empty())
             return true;
     }
@@ -96,14 +96,14 @@ bool Model::is_movable(ge211::Position pos) {
 bool Model::is_playable(Player plyr) {
     if (plyr == Player::red) {
         for (Piece pc : red_army_) {
-            if (!compute_next_moves(pc).empty())
+            if (!compute_next_moves(&pc).empty())
                 return true;
         }
         return false;
     }
     else {
         for (Piece pc : blue_army_) {
-            if (!compute_next_moves(pc).empty())
+            if (!compute_next_moves(&pc).empty())
                 return true;
         }
         return false;
@@ -112,14 +112,14 @@ bool Model::is_playable(Player plyr) {
 }
 
 // Updates next_moves_ based upon the selected piece.
-std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
+std::vector<ge211::Position> Model::compute_next_moves(Piece* pc) {
     std::vector<ge211::Position> valid_moves;
     std::vector<ge211::Position> possible_moves;
 
-    int x_pos = pc.position().x;
-    int y_pos = pc.position().y;
+    int x_pos = pc->position().x;
+    int y_pos = pc->position().y;
 
-    if (pc.value() != -1) // CHANGE THIS TO TWO FOR SCOUT
+    if (pc->value() != -1) // CHANGE THIS TO TWO FOR SCOUT
     {
         possible_moves.push_back({x_pos + 1, y_pos});
         possible_moves.push_back({x_pos - 1, y_pos});
@@ -166,7 +166,7 @@ bool Model::is_valid_space(ge211::Position pos) {
         pos != ge211::Position{7, 4} &&
         pos != ge211::Position{6, 5} &&
         pos != ge211::Position{7, 5}) {
-        if (get_pos(pos).value() == -1 || (get_pos(pos).player() != turn()))
+        if (get_pos(pos)->value() == -1 || (get_pos(pos)->player() != turn()))
             return true;
     }
     return false;
@@ -197,7 +197,7 @@ void Model::end_game() {
 
 
 // Determines the winner of a battle between two pieces, removes loser from gameplay, checks if flag is captured
-void Model::battle(Piece pc1, Piece pc2) {
+void Model::battle(Piece* pc1, Piece* pc2) {
     deleteLoser(battleLoser(pc1, pc2));
 }
 
@@ -206,29 +206,29 @@ void Model::battle(Piece pc1, Piece pc2) {
 //
 
 // Determines the loser of the battle between the two given pieces
-Piece Model::battleLoser(Piece pc1, Piece pc2) {
-    if (pc2.value() == 0) {
-        winner_ = pc1.player();
+Piece* Model::battleLoser(Piece* pc1, Piece* pc2) {
+    if (pc2->value() == 0) {
+        winner_ = pc1->player();
         end_game();
     }
 
-    else if (pc2.value() == 11)
+    else if (pc2->value() == 11)
     {
-        if (pc1.value() == 3)
+        if (pc1->value() == 3)
             return pc1;
         else
             return pc2;
     }
-    else if (pc1.value() == 1)
+    else if (pc1->value() == 1)
     {
-        if (pc2.value() == 10)
+        if (pc2->value() == 10)
             return pc1;
         else
             return pc2;
     }
     else
     {
-        if (pc1.value() >= pc2.value())
+        if (pc1->value() >= pc2->value())
             return pc2;
         else
             return pc1;
@@ -236,9 +236,9 @@ Piece Model::battleLoser(Piece pc1, Piece pc2) {
 }
 
 // Removes the loser from gameplay
-void Model::deleteLoser(Piece pc) {
+void Model::deleteLoser(Piece* pc) {
     set_msg("Battle ensues! Loser is : " + to_string(pc.player()));
-    pc.kill();
+    pc->kill();
 }
 
 // Attempts to play a move at the given position for the current
@@ -251,10 +251,10 @@ void Model::deleteLoser(Piece pc) {
 //    allowed for the current plyr.
 //
 
-void Model::play_move(Piece& pc, Position pos) {
+void Model::play_move(Piece* pc, Position pos) {
     Piece pc2 = get_pos(pos);
     if (pc2.value() != -1) {
-        battle(pc, pc2);
+        battle(&pc, &pc2);
         if (pc.alive())
             pc.change_position(pos);
     }
@@ -273,7 +273,6 @@ void Model::setup_play(ge211::Position grid_pos) {
     if(get_pos(grid_pos) == empty_piece() && setup_is_valid_space(grid_pos, turn_)) {
         Piece pc(turn(), get_next_val());
         place_piece(pc, grid_pos);
-        std::cout << "VALUE OF PIECE PLACED in setup play: " << pc.value();
         iterate_next_val();
     }
 }

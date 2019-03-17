@@ -24,7 +24,6 @@ protected:
 private:
     Model model_;
     View view_;
-    Piece pc_to_move_;
 
     ge211::Position mouse_posn;
 
