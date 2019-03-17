@@ -18,7 +18,7 @@ public:
 
     void kill();
 
-    ge211::Position position() { return pos; }
+    ge211::Position position() const { return pos; }
 
     int value() { return val; }
 

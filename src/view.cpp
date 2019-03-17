@@ -22,24 +22,12 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     //
     //  !!! Constant Setup !!!
     //
-    std::string next_val;
-    if (model_.is_setup()) {
-        next_val = val_to_str(model_.get_next_val());
-    }
 
 
     update_text(msg_txt, model_.msg());
 
     // Initialize better background
     set.add_sprite(background_sprite, {0,0}, 0);
-
-    // Initialize mouse piece locations
-    ge211::Position circle_center = mouse_pos;
-    circle_center = circle_center.left_by(piece_rad);
-    circle_center = circle_center.up_by(piece_rad);
-    ge211::Position txt_center = circle_center;
-    txt_center = txt_center.right_by(15);
-    update_text(cursor_value_txt, next_val);
 
     // Initialize lakes
     set.add_sprite(lake_sprite_, grid_to_pos(model_.lake_1().top_left()), 2);
@@ -74,6 +62,16 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
     if(model_.is_setup()) {
 
+        std::string next_val = val_to_str(model_.get_next_val());
+
+        // Initialize mouse piece locations
+        ge211::Position circle_center = mouse_pos;
+        circle_center = circle_center.left_by(piece_rad);
+        circle_center = circle_center.up_by(piece_rad);
+        ge211::Position txt_center = circle_center;
+        txt_center = txt_center.right_by(15);
+        update_text(cursor_value_txt, next_val);
+
         // Initialize setup_txt
         update_text(setup_txt, "Setup: True");
 
@@ -92,17 +90,20 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     }
     else {
         update_text(setup_txt, "Setup: False");
-        update_text(msg_txt, "Ready to Begin Game");
     }
 
     set.add_sprite(msg_txt, {10, line_to_pixel(1)}, 5);
     set.add_sprite(setup_txt, {10, line_to_pixel(2)}, 5);
 
+    if(model_.is_piece_selected) {
+        ge211::Position pos = grid_to_pos(model_.pc_to_move_.position());
+    }
+
     // For every piece in the blue army
     for(Piece pc : model_.blue_army()) {
 
         // If game is over, do something cool
-        if(model_.is_game_over()) {
+        if(model_.winner() != Player::neither) {
             if(pc.player() == model_.winner())
                 set.add_sprite(winner_sprite_, grid_to_pos(pc.position()), 2);
             else
@@ -119,7 +120,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
         // Initialize Value Labels
         if(model_.turn() == Player::blue) {
-            txt_center = grid_to_pos(pc.position());
+            Position txt_center = grid_to_pos(pc.position());
             txt_center = txt_center.right_by(17);
             txt_center = txt_center.down_by(3);
 
@@ -131,7 +132,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     for(Piece pc : model_.red_army()) {
 
         // If game is over, do something cool
-        if(model_.is_game_over()) {
+        if(model_.winner() != Player::neither) {
             if(pc.player() == model_.winner())
                 set.add_sprite(winner_sprite_, grid_to_pos(pc.position()), 2);
             else
@@ -148,7 +149,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
         // Initialize Value Labels
         if(model_.turn() == Player::red) {
-            txt_center = grid_to_pos(pc.position());
+            Position txt_center = grid_to_pos(pc.position());
             txt_center = txt_center.right_by(17);
             txt_center = txt_center.down_by(3);
 
