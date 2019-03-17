@@ -125,6 +125,7 @@ public:
 
     // Updates next_moves_ based upon the selected piece.
     std::vector<ge211::Position> compute_next_moves(Piece);
+    std::vector<ge211::Position> next_moves;
 
     friend struct Test_access;
 
