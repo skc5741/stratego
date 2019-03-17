@@ -44,7 +44,9 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
             }
         }
         else {
-            if (model_.is_valid_space(grid_pos)) {
+
+            if (model_.can_be_moved_here(grid_pos, {model_.pc_to_move_x, model_.pc_to_move_y})) {
+                std::cout << "can be moved";
                 Piece* pc_to_move_ = model_.get_pos({model_.pc_to_move_x, model_.pc_to_move_y});
                 model_.play_move(pc_to_move_, grid_pos);
                 //std::cout << pc_to_move_.position().x << pc_to_move_.position().y;
@@ -60,7 +62,8 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
 
 void Controller::on_key_down(Key key)
 {
-    model_.advance_turn();
+    if (model_.turn() == Player::neither && !model_.is_game_over())
+        model_.advance_turn();
 }
 
 Dimensions Controller::initial_window_dimensions() const

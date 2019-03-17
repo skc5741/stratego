@@ -98,6 +98,17 @@ bool Model::is_movable(ge211::Position pos) {
     return false;
 }
 
+bool Model::can_be_moved_here(ge211::Position next_pos, ge211::Position curr_pos) {
+    Piece* pc = get_pos(curr_pos);
+    std::vector<ge211::Position> possible_moves = compute_next_moves(*pc);
+    for (Position posn : possible_moves)
+    {
+        if (posn.x == next_pos.x && posn.y == next_pos.y)
+            return true;
+    }
+    return false;
+}
+
 // Checks to see if the given plyr has any moves to make
 bool Model::is_playable(Player plyr) {
     if (plyr == Player::red) {
