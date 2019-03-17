@@ -35,7 +35,7 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     else
     {
 
-        if (!model_.is_piece_selected) {
+        if (!model_.is_piece_selected || model_.get_pos(grid_pos)->player() == model_.turn()) {
             if (model_.is_movable(grid_pos)) {
                 model_.pc_to_move_x = model_.get_pos(grid_pos)->position().x;
                 model_.pc_to_move_y = model_.get_pos(grid_pos)->position().y;
@@ -60,7 +60,7 @@ void Controller::on_mouse_down(ge211::Mouse_button, ge211::Position position)
     }
 }
 
-void Controller::on_key_down(Key key)
+void Controller::on_key_down(Key)
 {
     if (model_.turn() == Player::neither && !model_.is_game_over())
         model_.advance_turn();

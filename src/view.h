@@ -41,7 +41,6 @@ private:
 
     int space_dim = 50;
     int piece_rad = 21;
-    int marker_rad = 8;
     int spacing = 5;
     int txt_size = 25;
     int board_y_offset = model_.board().height * (space_dim + spacing);

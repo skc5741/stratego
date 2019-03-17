@@ -113,14 +113,14 @@ bool Model::can_be_moved_here(ge211::Position next_pos, ge211::Position curr_pos
 bool Model::is_playable(Player plyr) {
     if (plyr == Player::red) {
         for (Piece pc : red_army_) {
-            if (!compute_next_moves(pc).empty())
+            if (is_movable(pc.position()))
                 return true;
         }
         return false;
     }
     else {
         for (Piece pc : blue_army_) {
-            if (!compute_next_moves(pc).empty())
+            if (is_movable(pc.position()))
                 return true;
         }
         return false;
@@ -136,29 +136,12 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
     int x_pos = pc.position().x;
     int y_pos = pc.position().y;
 
-    if (pc.value() != -1) // CHANGE THIS TO TWO FOR SCOUT
+    if (pc.value() != -1)
     {
         possible_moves.push_back({x_pos + 1, y_pos});
         possible_moves.push_back({x_pos - 1, y_pos});
         possible_moves.push_back({x_pos, y_pos + 1});
         possible_moves.push_back({x_pos, y_pos - 1});
-    }
-    else
-    {
-        // TODO
-        //scout
-        //add possible check: extra move can only be at an enemy
-        // also, there are some duplicates in here...
-
-        /*
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = x_pos -1; j < x_pos + 2; j++)
-                possible_moves.push_back({j, i});
-            for (int k = y_pos -1; k < x_pos + 2; k++)
-                possible_moves.push_back({i, k});
-        }
-         */
     }
 
     for (Position p : possible_moves)
