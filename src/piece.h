@@ -2,7 +2,7 @@
 // Created by Sam Crites on 2019-03-10.
 //
 
-#include "ge211.h"
+#include "../.eecs211/lib/ge211/include/ge211.h"
 #include "player.h"
 
 class Piece {

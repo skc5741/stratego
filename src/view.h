@@ -10,10 +10,13 @@
 
 ge211::Color const red_color    {235, 0, 0};
 ge211::Color const green_color    {0, 235, 0};
+ge211::Color const dark_green_color { 0, 190, 0};
 ge211::Color const blue_color    {0, 0, 235};
 ge211::Color const white_color  {235, 235, 235};
 ge211::Color const black_color   {20, 20, 20};
 ge211::Color const gray_color    {135, 135, 135};
+ge211::Color const yellow_color    {235, 235, 0};
+ge211::Color const orange_color    {235, 140, 0};
 
 class View
 {
@@ -48,7 +51,13 @@ private:
 
     // TODO: Add any private members you need, such as sprites
     ge211::Rectangle_sprite    const    // Dimensions, color
-            space_sprite_    {{ space_dim, space_dim }, green_color};
+            green_sprite_    {{ space_dim, space_dim }, green_color};
+    ge211::Rectangle_sprite    const    // Dimensions, color
+            dark_green_sprite_    {{ space_dim, space_dim }, dark_green_color};
+    ge211::Rectangle_sprite    const    // Dimensions, color
+            yellow_sprite_    {{ space_dim, space_dim }, yellow_color};
+    ge211::Rectangle_sprite    const    // Dimensions, color
+            orange_sprite_    {{ space_dim, space_dim }, orange_color};
     ge211::Rectangle_sprite    const    // Dimensions, color
             winner_sprite_    {{ space_dim, space_dim }, white_color};
     ge211::Rectangle_sprite    const    // Dimensions, color
@@ -89,6 +98,5 @@ private:
     void update_text(ge211::Text_sprite&, std::string);
     int line_to_pixel(int);
     std::string val_to_str(int);
-    ge211::Position val_pos(std::string, ge211::Position);
     ge211::Text_sprite &right_sprite(int);
 };

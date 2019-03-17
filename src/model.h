@@ -123,6 +123,9 @@ public:
 
     bool can_be_moved_here(ge211::Position, ge211::Position);
 
+    // Updates next_moves_ based upon the selected piece.
+    std::vector<ge211::Position> compute_next_moves(Piece);
+
     friend struct Test_access;
 
 private:
@@ -164,10 +167,6 @@ private:
 
 // Checks to see if the given plyr has any moves to make
     bool is_playable(Player);
-
-// Updates next_moves_ based upon the selected piece.
-    std::vector<ge211::Position> compute_next_moves(Piece);
-
 
 // Ends game, announces winner
     void end_game();

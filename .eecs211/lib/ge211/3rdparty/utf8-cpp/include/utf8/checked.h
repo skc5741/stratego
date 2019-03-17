@@ -64,7 +64,7 @@ namespace utf8
 
     class not_enough_room : public exception {
     public:
-        virtual const char* what() const throw() { return "Not enough pos"; }
+        virtual const char* what() const throw() { return "Not enough space"; }
     };
 
     /// The library API - functions intended to be called by the users

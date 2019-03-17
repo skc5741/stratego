@@ -270,7 +270,7 @@ void Model::deleteLoser(Piece* pc) {
 
 void Model::play_move(Piece* pc, Position pos) {
     Piece* pc2 = get_pos(pos);
-    if (pc2->value() != -1) {
+    if (*pc2 != empty_piece_) {
         battle(pc, pc2);
         if (pc->alive())
             move_piece(*pc, pos);

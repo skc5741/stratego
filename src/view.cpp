@@ -47,13 +47,33 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         set.add_sprite(turn_txt, {10, line_to_pixel(0)}, 5);
     }
 
+    // Initialize Highlight Turn
+    if(model_.is_piece_selected) {
+        set.add_sprite(yellow_sprite_, grid_to_pos({model_.pc_to_move_x, model_.pc_to_move_y}), 2);
+
+        // Initialize Highlight Move Options
+        /*Piece* pc = model_.get_pos({model_.pc_to_move_x, model_.pc_to_move_y});
+        for(model_.compute_next_moves(*pc)) {
+
+        } change */
+    }
+
     // For each board position
+    bool is_dark = false;
     for(int x = 0; x < model_.board().width; x++) {
         for(int y = 0; y < model_.board().height; y++) {
 
             // Initialize board spaces
-            set.add_sprite(space_sprite_, grid_to_pos({x,y}), 1);
+            if(is_dark){
+                set.add_sprite(green_sprite_, grid_to_pos({x,y}), 1);
+                is_dark = !is_dark;
+            }
+            else {
+                set.add_sprite(dark_green_sprite_, grid_to_pos({x,y}), 1);
+                is_dark = !is_dark;
+            }
         }
+        is_dark = !is_dark;
     }
 
     //

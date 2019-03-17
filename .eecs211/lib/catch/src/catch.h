@@ -873,7 +873,7 @@ namespace Catch {
 #if !defined(CATCH_CONFIG_FALLBACK_STRINGIFIER)
             return Detail::convertUnstreamable(value);
 #else
-            return CATCH_CONFIG_FALLBACK_STRINGIFIER(val);
+            return CATCH_CONFIG_FALLBACK_STRINGIFIER(value);
 #endif
         }
     };
@@ -1122,7 +1122,7 @@ namespace Catch {
         template<
             typename Tuple,
             std::size_t N = 0,
-            bool = (N < std::tuple_size<Tuple>::val)
+            bool = (N < std::tuple_size<Tuple>::value)
             >
             struct TupleElementPrinter {
             static void print(const Tuple& tuple, std::ostream& os) {
@@ -1175,7 +1175,7 @@ namespace Catch {
 #if defined(_MANAGED) // Managed types are never ranges
     template <typename T>
     struct is_range<T^> {
-        static const bool val = false;
+        static const bool value = false;
     };
 #endif
 
@@ -2979,9 +2979,9 @@ namespace Catch {
             NSString* selStr = [[NSString alloc] initWithFormat:@"Catch_%s_%s", annotationName.c_str(), testCaseName.c_str()];
             SEL sel = NSSelectorFromString( selStr );
             arcSafeRelease( selStr );
-            id val = performOptionalSelector( cls, sel );
-            if( val )
-                return [(NSString*)val UTF8String];
+            id value = performOptionalSelector( cls, sel );
+            if( value )
+                return [(NSString*)value UTF8String];
             return "";
         }
     }
@@ -3779,7 +3779,7 @@ namespace Catch {
 
         virtual void assertionStarting( AssertionInfo const& assertionInfo ) = 0;
 
-        // The return val indicates if the messages buffer should be cleared:
+        // The return value indicates if the messages buffer should be cleared:
         virtual bool assertionEnded( AssertionStats const& assertionStats ) = 0;
 
         // *** experimental ***
@@ -4735,8 +4735,8 @@ namespace Detail {
     }
 
     bool Approx::equalityComparisonImpl(const double other) const {
-        // First try with fixed margin, then compute margin based on epsilon, scale and Approx's val
-        // Thanks to Richard Harris for his help refining the scaled margin val
+        // First try with fixed margin, then compute margin based on epsilon, scale and Approx's value
+        // Thanks to Richard Harris for his help refining the scaled margin value
         return marginComparison(m_value, other, m_margin) || marginComparison(m_value, other, m_epsilon * (m_scale + std::fabs(m_value)));
     }
 
@@ -5296,7 +5296,7 @@ namespace Catch {
 
 // start catch_clara.h
 
-// Use Catch's val for console width (store Clara's off to the side, if present)
+// Use Catch's value for console width (store Clara's off to the side, if present)
 #ifdef CLARA_CONFIG_CONSOLE_WIDTH
 #define CATCH_TEMP_CLARA_CONFIG_CONSOLE_WIDTH CATCH_CLARA_TEXTFLOW_CONFIG_CONSOLE_WIDTH
 #undef CATCH_CLARA_TEXTFLOW_CONFIG_CONSOLE_WIDTH
@@ -5964,7 +5964,7 @@ namespace detail {
         else if (srcLC == "n" || srcLC == "0" || srcLC == "false" || srcLC == "no" || srcLC == "off")
             target = false;
         else
-            return ParserResult::runtimeError( "Expected a boolean val but did not recognise: '" + source + "'" );
+            return ParserResult::runtimeError( "Expected a boolean value but did not recognise: '" + source + "'" );
         return ParserResult::ok( ParseResultType::Matched );
     }
 #ifdef CLARA_CONFIG_OPTIONAL_TYPE
@@ -6556,7 +6556,7 @@ using detail::ParserResult;
 #pragma clang diagnostic pop
 #endif
 
-// Restore Clara's val for console width, if present
+// Restore Clara's value for console width, if present
 #ifdef CATCH_TEMP_CLARA_CONFIG_CONSOLE_WIDTH
 #define CATCH_CLARA_TEXTFLOW_CONFIG_CONSOLE_WIDTH CATCH_TEMP_CLARA_CONFIG_CONSOLE_WIDTH
 #undef CATCH_TEMP_CLARA_CONFIG_CONSOLE_WIDTH
@@ -7443,7 +7443,7 @@ namespace Catch {
     FatalConditionHandler::FatalConditionHandler() {
         isSet = true;
         // 32k seems enough for Catch to handle stack overflow,
-        // but the val was found experimentally, so there is no strong guarantee
+        // but the value was found experimentally, so there is no strong guarantee
         guaranteeSize = 32 * 1024;
         exceptionHandlerHandle = nullptr;
         // Register as first handler in current chain
@@ -7480,7 +7480,7 @@ namespace Catch {
         const char* name;
     };
 
-    // 32kb for the alternate stack seems to be sufficient. However, this val
+    // 32kb for the alternate stack seems to be sufficient. However, this value
     // is experimentally determined, so that's not guaranteed.
     constexpr static std::size_t sigStackSize = 32768 >= MINSIGSTKSZ ? 32768 : MINSIGSTKSZ;
 
@@ -7618,7 +7618,7 @@ namespace Catch {
         void sectionStarting( SectionInfo const& sectionInfo ) override;
         void assertionStarting( AssertionInfo const& assertionInfo ) override;
 
-        // The return val indicates if the messages buffer should be cleared:
+        // The return value indicates if the messages buffer should be cleared:
         bool assertionEnded( AssertionStats const& assertionStats ) override;
         void sectionEnded( SectionStats const& sectionStats ) override;
         void testCaseEnded( TestCaseStats const& testCaseStats ) override;
@@ -8092,7 +8092,7 @@ namespace Floating {
         case FloatingPointKind::Double:
             return almostEqualUlps<double>(matchee, m_target, m_ulps);
         default:
-            throw std::domain_error("Unknown FloatingPointKind val");
+            throw std::domain_error("Unknown FloatingPointKind value");
         }
     }
 
@@ -8903,7 +8903,7 @@ namespace Catch {
             m_lastAssertionPassed = true;
         }
 
-        // We have no use for the return val (whether messages should be cleared), because messages were made scoped
+        // We have no use for the return value (whether messages should be cleared), because messages were made scoped
         // and should be let to clear themselves out.
         static_cast<void>(m_reporter->assertionEnded(AssertionStats(result, m_messages, m_totals)));
 
@@ -9591,7 +9591,7 @@ namespace Catch {
 
             auto totals = runTests( m_config );
             // Note that on unices only the lower 8 bits are usually used, clamping
-            // the return val to 255 prevents false negative when some multiple
+            // the return value to 255 prevents false negative when some multiple
             // of 256 tests has failed
             return (std::min) (MaxExitCode, (std::max) (totals.error, static_cast<int>(totals.assertions.failed)));
         }
@@ -11336,7 +11336,7 @@ namespace {
                 }
                 // The header is valid, check data
                 // The next encBytes bytes must together be a valid utf-8
-                // This means: bitpattern 10XX XXXX and the extracted val is sane (ish)
+                // This means: bitpattern 10XX XXXX and the extracted value is sane (ish)
                 bool valid = true;
                 uint32_t value = headerValue(c);
                 for (std::size_t n = 1; n < encBytes; ++n) {
@@ -11352,7 +11352,7 @@ namespace {
                     (value < 0x80) ||
                     (0x80 <= value && value < 0x800   && encBytes > 2) ||
                     (0x800 < value && value < 0x10000 && encBytes > 3) ||
-                    // Encoded val out of range
+                    // Encoded value out of range
                     (value >= 0x110000)
                     ) {
                     hexEscapeChar(os, c);
@@ -12765,7 +12765,7 @@ namespace Catch {
         m_reporter->assertionStarting( assertionInfo );
     }
 
-    // The return val indicates if the messages buffer should be cleared:
+    // The return value indicates if the messages buffer should be cleared:
     bool ListeningReporter::assertionEnded( AssertionStats const& assertionStats ) {
         for( auto const& listener : m_listeners ) {
             static_cast<void>( listener->assertionEnded( assertionStats ) );
