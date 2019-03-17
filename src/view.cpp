@@ -96,7 +96,7 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
     set.add_sprite(setup_txt, {10, line_to_pixel(2)}, 5);
 
     if(model_.is_piece_selected) {
-        ge211::Position pos = grid_to_pos(model_.pc_to_move_->position());
+        ge211::Position pos = grid_to_pos(model_.pc_to_move_.position());
     }
 
     // For every piece in the blue army
