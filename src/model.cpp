@@ -150,7 +150,8 @@ std::vector<ge211::Position> Model::compute_next_moves(Piece pc) {
             valid_moves.push_back(p);
     }
 
-    return valid_moves;
+    next_moves = valid_moves;
+    return next_moves;
 
 }
 

@@ -72,7 +72,7 @@ public:
     //int pc_to_move_x;
     //int pc_to_move_y;
 
-    ge211::Position pc_to_move;
+    ge211::Position pc_to_move = {-1,-1};
 
 // Returns the current turn, or `Player::neither` if the game is over.
     Player turn() const
@@ -126,7 +126,7 @@ public:
     bool can_be_moved_here(ge211::Position, ge211::Position);
 
     // Updates next_moves_ based upon the selected piece.
-    std::vector<ge211::Position> compute_next_moves(Piece);
+    std::vector<ge211::Position> next_moves;
 
     friend struct Test_access;
 
@@ -185,5 +185,7 @@ private:
 
 // Removes the loser from gameplay
     void deleteLoser(Piece*);
+
+    std::vector<ge211::Position> compute_next_moves(Piece);
 
 };

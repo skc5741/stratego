@@ -52,10 +52,9 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
         set.add_sprite(yellow_sprite_, grid_to_pos(model_.pc_to_move), 2);
 
         // Initialize Highlight Move Options
-        /*Piece* pc = model_.get_pos(model_.pc_to_move);
-        for(model_.compute_next_moves(*pc)) {
-
-        } change */
+        for(Position pos : model_.next_moves) {
+            set.add_sprite(orange_sprite_, grid_to_pos(pos), 2);
+        }
     }
 
     // For each board position
@@ -97,15 +96,15 @@ void View::draw(Sprite_set& set, ge211::Position mouse_pos)
 
         // Initialize mouse piece, turn data
         if (model_.turn() == Player::red) {
-            set.add_sprite(red_sprite_, circle_center, 5);
+            set.add_sprite(red_sprite_, circle_center, 7);
             update_text(msg_txt, "Red Setup Piece: " + next_val);
-            set.add_sprite(cursor_value_txt, txt_center, 6);
+            set.add_sprite(cursor_value_txt, txt_center, 8);
 
         }
         else if (model_.turn() == Player::blue) {
-            set.add_sprite(blue_sprite_, circle_center, 5);
+            set.add_sprite(blue_sprite_, circle_center, 7);
             update_text(msg_txt, "Blue Setup Piece: " + next_val);
-            set.add_sprite(cursor_value_txt, txt_center, 6);
+            set.add_sprite(cursor_value_txt, txt_center, 8);
         }
     }
     else {
@@ -190,7 +189,7 @@ Dimensions View::initial_window_dimensions() const
 std::string View::initial_window_title() const
 {
     // You can change this if you want:
-    return "MotherFucking Stratego";
+    return "Stratego";
 }
 
 ge211::Position View::pos_to_grid(ge211::Position pos) const {
